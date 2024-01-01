@@ -23,6 +23,7 @@ public class ChessboardComponent extends JComponent {
     private final Set<ChessboardPoint> riverCell = new HashSet<>();
 
     private GameController gameController;
+    private Cell[][] grid;
 
     public ChessboardComponent(int chessSize) {
         CHESS_SIZE = chessSize;
@@ -110,6 +111,9 @@ public class ChessboardComponent extends JComponent {
 
     public void nextStep(){
         gameController.onPlayerNextStep();
+    }
+    public void Rearrange(){
+        gameController.onPlayerRearrange();
     }
 
 

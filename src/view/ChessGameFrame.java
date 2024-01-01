@@ -17,15 +17,15 @@ public class ChessGameFrame extends JFrame {
     private final int ONE_CHESS_SIZE;
 
     private ChessboardComponent chessboardComponent;
-    public GameController gameController;
+    public static GameController gameController;
 
 
-//    public static JLabel modeLabel;
-    public JLabel stepLabel,scoreLabel,remainingStepLable;
-    Chessboard chessboard=new Chessboard(0);
+    //    public static JLabel modeLabel;
+    public JLabel stepLabel, scoreLabel, remainingStepLable;
+    Chessboard chessboard = new Chessboard(0);
 
     private JButton btn2 = new JButton();
-    private final ImageIcon image5=new ImageIcon("images/quit.jpg");
+    private final ImageIcon image5 = new ImageIcon("images/quit.jpg");
 
     public ChessGameFrame(int width, int height) {
         setTitle("2023 CS109 Project Demo"); //设置标题
@@ -43,7 +43,7 @@ public class ChessGameFrame extends JFrame {
 //        addLabel();
         GameController gameController =
                 new GameController(this.getChessboardComponent(), chessboard);
-        this.gameController=gameController;
+        this.gameController = gameController;
 
         addHelloButton();
         addSwapConfirmButton();
@@ -118,6 +118,7 @@ public class ChessGameFrame extends JFrame {
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
     }
+
     private void addLoadButton() {
         JButton button = new JButton("Load");
         button.setLocation(HEIGTH, HEIGTH / 10 + 360);
@@ -127,7 +128,7 @@ public class ChessGameFrame extends JFrame {
 
         button.addActionListener(e -> {
             System.out.println("Click load");
-            String path = JOptionPane.showInputDialog(this,"Input Path here");
+            String path = JOptionPane.showInputDialog(this, "Input Path here");
             gameController.loadGameFromFile(path);
         });
     }
@@ -166,21 +167,22 @@ public class ChessGameFrame extends JFrame {
 
     private void addQuitButton(ImageIcon image) {
         btn2.setIcon(image);
-        image.setImage(image.getImage().getScaledInstance(38,32,Image.SCALE_DEFAULT));
+        image.setImage(image.getImage().getScaledInstance(38, 32, Image.SCALE_DEFAULT));
 
         btn2.setBorderPainted(false);
-        btn2.setBounds(900,680,38,32);
+        btn2.setBounds(900, 680, 38, 32);
         btn2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn2.addActionListener(e -> {
 
             setVisible(false);
             dispose();
-            StartFrame startFrame= new StartFrame(1100,810);
+            StartFrame startFrame = new StartFrame(1100, 810);
             startFrame.setVisible(true);
 
         });
         add(btn2);
     }
+
     private void addRearrangeButton() {
         JButton rearrangeButton = new JButton("Rearrange");
         rearrangeButton.setLocation(HEIGTH, HEIGTH / 10 + 520);
@@ -188,11 +190,12 @@ public class ChessGameFrame extends JFrame {
         rearrangeButton.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(rearrangeButton);
         rearrangeButton.addActionListener(e -> {
-
+            chessboardComponent.Rearrange();
         });
     }
+
     public void addRemainingStepLabel(int step) {
-        String text = String.format("Remaining Steps: %d",gameController.getStep()-step);
+        String text = String.format("Remaining Steps: %d", gameController.getStep() - step);
         remainingStepLable = new JLabel(text);
         remainingStepLable.setLocation(HEIGTH, HEIGTH / 10 - 80);
         remainingStepLable.setSize(400, 60);
@@ -200,8 +203,9 @@ public class ChessGameFrame extends JFrame {
         remainingStepLable.setForeground(Color.red);
         add(remainingStepLable);
     }
+
     public void addStepLabel(int step) {
-        String text = String.format("Steps: %d",step);
+        String text = String.format("Steps: %d", step);
         stepLabel = new JLabel(text);
         stepLabel.setLocation(HEIGTH, HEIGTH / 10 - 50);
         stepLabel.setSize(200, 60);
@@ -209,13 +213,17 @@ public class ChessGameFrame extends JFrame {
         stepLabel.setForeground(Color.red);
         add(stepLabel);
     }
+
     public void addScoreLabel(int score) {
-        String text = String.format("Scores: %d",score);
+        String text = String.format("Scores: %d", score);
         scoreLabel = new JLabel(text);
         scoreLabel.setLocation(HEIGTH, HEIGTH / 10 - 20);
         scoreLabel.setSize(200, 60);
         scoreLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
         scoreLabel.setForeground(Color.red);
         add(scoreLabel);
+    }
+    public static GameController getGameController(){
+        return gameController;
     }
 }

@@ -16,6 +16,7 @@ public class Chessboard {
         initGrid();
         initPieces(randomSeed);
     }
+
     public void Print() {
         for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
             for (int j = 0; j < Constant.CHESSBOARD_COL_SIZE.getNum(); j++) {
@@ -24,6 +25,7 @@ public class Chessboard {
             System.out.printf("\n");
         }
     }
+
     private void initGrid() {
         for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
             for (int j = 0; j < Constant.CHESSBOARD_COL_SIZE.getNum(); j++) {
@@ -42,6 +44,7 @@ public class Chessboard {
         }
         fixPieces();
     }
+
     private String GetNextName(String ch) {
         String pieceIcons[] = {"💎", "⚪", "▲", "🔶"};
         for (int i = 0; i < pieceIcons.length; i++) {
@@ -54,6 +57,7 @@ public class Chessboard {
         }
         return pieceIcons[0];
     }
+
     private void fixPieces() {
 
         boolean bModified = false;
@@ -74,6 +78,7 @@ public class Chessboard {
             //TODO：这里最好加一个次数控制，比如100次之后就强行跳出，避免出现意外情况时死循环
         } while (bModified);
     }
+
     public boolean fixRow(int row) {
         boolean isFixed = false;
 
@@ -102,6 +107,7 @@ public class Chessboard {
         }
         return isFixed;
     }
+
     public boolean fixColumn(int col) {
         boolean isFixed = false;
 
@@ -124,6 +130,7 @@ public class Chessboard {
         }
         return isFixed;
     }
+
     public ChessPiece getChessPieceAt(ChessboardPoint point) {
         return getGridAt(point).getPiece();
     }
@@ -157,5 +164,9 @@ public class Chessboard {
 
     public Cell[][] getGrid() {
         return grid;
+    }
+
+    public void setGrid(Cell[][] grid) {
+        this.grid = grid;
     }
 }

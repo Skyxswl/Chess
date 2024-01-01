@@ -159,8 +159,8 @@ public class StartFrame extends JFrame {
         btn002.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn002.addActionListener(e -> {
             ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
-            mainFrame.gameController.setScoretarget(200);
-            mainFrame.gameController.setStep(30);
+            mainFrame.gameController.setScoretarget(Level.Level2.getNum1());
+            mainFrame.gameController.setStep(Level.Level2.getNum2());
             mainFrame.setVisible(true);
             dispose();
         });
@@ -175,8 +175,8 @@ public class StartFrame extends JFrame {
         btn003.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn003.addActionListener(e -> {
             ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
-            mainFrame.gameController.setScoretarget(500);
-            mainFrame.gameController.setStep(30);
+            mainFrame.gameController.setScoretarget(Level.Level3.getNum1());
+            mainFrame.gameController.setStep(Level.Level3.getNum2());
             mainFrame.setVisible(true);
             dispose();
         });
@@ -191,8 +191,8 @@ public class StartFrame extends JFrame {
         btn004.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn004.addActionListener(e -> {
             ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
-            mainFrame.gameController.setScoretarget(1000);
-            mainFrame.gameController.setStep(30);
+            mainFrame.gameController.setScoretarget(Level.Level4.getNum1());
+            mainFrame.gameController.setStep(Level.Level4.getNum2());
             mainFrame.setVisible(true);
             dispose();
         });
@@ -207,8 +207,8 @@ public class StartFrame extends JFrame {
         btn005.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn005.addActionListener(e -> {
             ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
-            mainFrame.gameController.setScoretarget(1000);
-            mainFrame.gameController.setStep(25);
+            mainFrame.gameController.setScoretarget(Level.Level5.getNum1());
+            mainFrame.gameController.setStep(Level.Level5.getNum2());
             mainFrame.setVisible(true);
             dispose();
         });
@@ -223,8 +223,8 @@ public class StartFrame extends JFrame {
         btn006.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn006.addActionListener(e -> {
             ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
-            mainFrame.gameController.setScoretarget(1500);
-            mainFrame.gameController.setStep(25);
+            mainFrame.gameController.setScoretarget(Level.Level6.getNum1());
+            mainFrame.gameController.setStep(Level.Level6.getNum2());
             mainFrame.setVisible(true);
             dispose();
         });
@@ -239,8 +239,8 @@ public class StartFrame extends JFrame {
         btn007.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn007.addActionListener(e -> {
             ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
-            mainFrame.gameController.setScoretarget(3000);
-            mainFrame.gameController.setStep(25);
+            mainFrame.gameController.setScoretarget(Level.Level7.getNum1());
+            mainFrame.gameController.setStep(Level.Level7.getNum2());
             mainFrame.setVisible(true);
             dispose();
         });
@@ -255,8 +255,8 @@ public class StartFrame extends JFrame {
         btn008.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn008.addActionListener(e -> {
             ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
-            mainFrame.gameController.setScoretarget(5000);
-            mainFrame.gameController.setStep(30);
+            mainFrame.gameController.setScoretarget(Level.Level8.getNum1());
+            mainFrame.gameController.setStep(Level.Level8.getNum2());
             mainFrame.setVisible(true);
             dispose();
         });
@@ -271,8 +271,8 @@ public class StartFrame extends JFrame {
         btn009.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn009.addActionListener(e -> {
             ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
-            mainFrame.gameController.setScoretarget(8000);
-            mainFrame.gameController.setStep(30);
+            mainFrame.gameController.setScoretarget(Level.Level9.getNum1());
+            mainFrame.gameController.setStep(Level.Level9.getNum2());
             mainFrame.setVisible(true);
             dispose();
         });
@@ -287,8 +287,8 @@ public class StartFrame extends JFrame {
         btn010.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn010.addActionListener(e -> {
             ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
-            mainFrame.gameController.setScoretarget(10000);
-            mainFrame.gameController.setStep(30);
+            mainFrame.gameController.setScoretarget(Level.Level10.getNum1());
+            mainFrame.gameController.setStep(Level.Level10.getNum2());
             mainFrame.setVisible(true);
             dispose();
         });
@@ -303,8 +303,8 @@ public class StartFrame extends JFrame {
         btn001.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn001.addActionListener(e -> {
             ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
-            mainFrame.gameController.setScoretarget(100);
-            mainFrame.gameController.setStep(30);
+            mainFrame.gameController.setScoretarget(Level.Level1.getNum1());
+            mainFrame.gameController.setStep(Level.Level1.getNum2());
             mainFrame.setVisible(true);
             dispose();
         });

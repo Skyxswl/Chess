@@ -12,6 +12,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Formatter;
 import java.util.List;
 import java.util.Scanner;
@@ -38,7 +39,9 @@ public class GameController implements GameListener, Serializable {
     private int scoretarget;
     private int stepnum=0;
     private boolean ifgamecontinue=true;
+    private int count=0;
 
+    private Cell[][] grid1=new Cell[8][8];
     public GameController(ChessboardComponent view, Chessboard model) {
         this.view = view;
         this.model = model;
@@ -63,6 +66,15 @@ public class GameController implements GameListener, Serializable {
 
     @Override
     public void onPlayerSwapChess() {
+        if(!checkgame()){
+            if(!ifgamecontinue){
+                windows end=new windows(400,200);
+                end.gameoverwindows();
+            }
+        }else if(checkgame()){
+            windows end=new windows(400,200);
+            end.Endwindows();
+        }
         model.swapChessPiece(selectedPoint, selectedPoint2);
         view.initiateChessComponent(model);
         view.repaint();
@@ -81,15 +93,18 @@ public class GameController implements GameListener, Serializable {
             view.repaint();
         }
         stepnum++;
-
     }
 
     @Override
     public void onPlayerNextStep() {
         if(!checkgame()){
             if(!ifgamecontinue){
-                //TODO:游戏结束窗口和下一关入口制作；
+                windows end=new windows(400,200);
+                end.gameoverwindows();
             }
+        }else if(checkgame()){
+            windows end=new windows(400,200);
+            end.Endwindows();
         }
         if (countnext == 2) {
             countnext = 0;
@@ -154,7 +169,12 @@ public class GameController implements GameListener, Serializable {
             view.repaint();
         }
     }
-
+    public void onPlayerRearrange(){
+        Chessboard chessboard=new Chessboard(0);
+        model=chessboard;
+        view.initiateChessComponent(model);
+        view.repaint();
+    }
     // click a cell with a chess
     @Override
     public void onPlayerClickChessPiece(ChessboardPoint point, ChessComponent component) {
@@ -435,6 +455,24 @@ public class GameController implements GameListener, Serializable {
             ifgamecontinue=false;
             return false;
         }
-        return true;
+        return false;
+    }
+
+    public Chessboard getModel() {
+        return model;
+    }
+    public String getlevel(){
+        for (Level c:Level.values()){
+            if(c.getNum1()==scoretarget&&c.getNum2()==step){
+                return c.name();
+            }
+        }
+        return null;
+    }
+    public void refresh(){
+        step=0;
+        stepnum=0;
+        scoretarget=0;
+        score=0;
     }
 }
