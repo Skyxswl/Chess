@@ -50,6 +50,7 @@ public class ChessGameFrame extends JFrame {
         addLoadButton();
         addSaveButton();
         addQuitButton(image5);
+        addRearrangeButton();
 
     }
 
@@ -164,7 +165,7 @@ public class ChessGameFrame extends JFrame {
         image.setImage(image.getImage().getScaledInstance(38,32,Image.SCALE_DEFAULT));
 
         btn2.setBorderPainted(false);
-        btn2.setBounds(900,601,38,32);
+        btn2.setBounds(900,680,38,32);
         btn2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn2.addActionListener(e -> {
 
@@ -175,5 +176,15 @@ public class ChessGameFrame extends JFrame {
 
         });
         add(btn2);
+    }
+    private void addRearrangeButton() {
+        JButton rearrangeButton = new JButton("Rearrange");
+        rearrangeButton.setLocation(HEIGTH, HEIGTH / 10 + 520);
+        rearrangeButton.setSize(200, 60);
+        rearrangeButton.setFont(new Font("Rockwell", Font.BOLD, 20));
+        add(rearrangeButton);
+        rearrangeButton.addActionListener(e -> {
+
+        });
     }
 }
