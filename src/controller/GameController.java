@@ -405,6 +405,27 @@ public class GameController implements GameListener, Serializable {
     public void setScoretarget(int scoretarget) {
         this.scoretarget = scoretarget;
     }
+
+    public int getScore() {
+        return score;
+    }
+
+    public int getCountnext() {
+        return countnext;
+    }
+
+    public int getStep() {
+        return step;
+    }
+
+    public int getScoretarget() {
+        return scoretarget;
+    }
+
+    public int getStepnum() {
+        return stepnum;
+    }
+
     private boolean checkgame(){
 
         if(score>=scoretarget&&stepnum<=step){

@@ -17,10 +17,11 @@ public class ChessGameFrame extends JFrame {
     private final int ONE_CHESS_SIZE;
 
     private ChessboardComponent chessboardComponent;
-    private GameController gameController;
+    public GameController gameController;
 
 
-    public static JLabel modeLabel;
+//    public static JLabel modeLabel;
+    public JLabel stepLabel,scoreLabel,remainingStepLable;
     Chessboard chessboard=new Chessboard(0);
 
     private JButton btn2 = new JButton();
@@ -39,7 +40,7 @@ public class ChessGameFrame extends JFrame {
 
 
         addChessboard();
-        addLabel();
+//        addLabel();
         GameController gameController =
                 new GameController(this.getChessboardComponent(), chessboard);
         this.gameController=gameController;
@@ -51,6 +52,9 @@ public class ChessGameFrame extends JFrame {
         addSaveButton();
         addQuitButton(image5);
         addRearrangeButton();
+        addRemainingStepLabel(gameController.getStepnum());
+        addStepLabel(gameController.getStepnum());
+        addScoreLabel(gameController.getScore());
 
     }
 
@@ -76,13 +80,13 @@ public class ChessGameFrame extends JFrame {
     /**
      * 在游戏面板中添加标签
      */
-    private void addLabel() {
-        JLabel statusLabel = new JLabel("Sample label");
-        statusLabel.setLocation(HEIGTH, HEIGTH / 10);
-        statusLabel.setSize(200, 60);
-        statusLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
-        add(statusLabel);
-    }
+//    private void addLabel() {
+//        JLabel statusLabel = new JLabel("Sample label");
+//        statusLabel.setLocation(HEIGTH, HEIGTH / 10);
+//        statusLabel.setSize(200, 60);
+//        statusLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
+//        add(statusLabel);
+//    }
 
     /**
      * 在游戏面板中增加一个按钮，如果按下的话就会显示Hello, world!
@@ -186,5 +190,32 @@ public class ChessGameFrame extends JFrame {
         rearrangeButton.addActionListener(e -> {
 
         });
+    }
+    public void addRemainingStepLabel(int step) {
+        String text = String.format("Remaining Steps: %d",gameController.getStep()-step);
+        remainingStepLable = new JLabel(text);
+        remainingStepLable.setLocation(HEIGTH, HEIGTH / 10 - 80);
+        remainingStepLable.setSize(400, 60);
+        remainingStepLable.setFont(new Font("Rockwell", Font.BOLD, 20));
+        remainingStepLable.setForeground(Color.red);
+        add(remainingStepLable);
+    }
+    public void addStepLabel(int step) {
+        String text = String.format("Steps: %d",step);
+        stepLabel = new JLabel(text);
+        stepLabel.setLocation(HEIGTH, HEIGTH / 10 - 50);
+        stepLabel.setSize(200, 60);
+        stepLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
+        stepLabel.setForeground(Color.red);
+        add(stepLabel);
+    }
+    public void addScoreLabel(int score) {
+        String text = String.format("Scores: %d",score);
+        scoreLabel = new JLabel(text);
+        scoreLabel.setLocation(HEIGTH, HEIGTH / 10 - 20);
+        scoreLabel.setSize(200, 60);
+        scoreLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
+        scoreLabel.setForeground(Color.red);
+        add(scoreLabel);
     }
 }
