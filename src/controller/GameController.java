@@ -34,6 +34,10 @@ public class GameController implements GameListener, Serializable {
 
     private int score = 0;
     private int countnext = 0;
+    private int step;
+    private int scoretarget;
+    private int stepnum=0;
+    private boolean ifgamecontinue=true;
 
     public GameController(ChessboardComponent view, Chessboard model) {
         this.view = view;
@@ -76,12 +80,17 @@ public class GameController implements GameListener, Serializable {
             view.initiateChessComponent(model);
             view.repaint();
         }
-        System.out.println("OK");
+        stepnum++;
 
     }
 
     @Override
     public void onPlayerNextStep() {
+        if(!checkgame()){
+            if(!ifgamecontinue){
+                //TODO:游戏结束窗口和下一关入口制作；
+            }
+        }
         if (countnext == 2) {
             countnext = 0;
             if (ifswap()) {
@@ -388,4 +397,23 @@ public class GameController implements GameListener, Serializable {
 //    public void setPlayerController(int roundType) {
 //        view.playerController.setRoundType(roundType);
 //    }
+
+    public void setStep(int step) {
+        this.step = step;
+    }
+
+    public void setScoretarget(int scoretarget) {
+        this.scoretarget = scoretarget;
+    }
+    private boolean checkgame(){
+
+        if(score>=scoretarget&&stepnum<=step){
+            return true;
+        }
+        else if(stepnum==step){
+            ifgamecontinue=false;
+            return false;
+        }
+        return true;
+    }
 }
