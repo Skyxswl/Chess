@@ -145,6 +145,8 @@ public class StartFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
+                mainFrame.gameController.setScoretarget(Level.Level1.getNum1());
+                mainFrame.gameController.setStep(Level.Level1.getNum2());
                 mainFrame.setVisible(true);
                 dispose();
             }

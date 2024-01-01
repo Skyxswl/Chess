@@ -40,6 +40,7 @@ public class GameController implements GameListener, Serializable {
     private int stepnum=0;
     private boolean ifgamecontinue=true;
     private int count=0;
+    private boolean checknext=true;
 
     private Cell[][] grid1=new Cell[8][8];
     public GameController(ChessboardComponent view, Chessboard model) {
@@ -70,41 +71,53 @@ public class GameController implements GameListener, Serializable {
             if(!ifgamecontinue){
                 windows end=new windows(400,200);
                 end.gameoverwindows();
+                end.setVisible(true);
             }
         }else if(checkgame()){
             windows end=new windows(400,200);
             end.Endwindows();
+            end.setVisible(true);
         }
-        model.swapChessPiece(selectedPoint, selectedPoint2);
-        view.initiateChessComponent(model);
-        view.repaint();
-        if (!ifswap()) {
+        if(!checknext){
+            windows end=new windows(400,200);
+            end.nextwindows();
+            end.setVisible(true);
+        }else {
             model.swapChessPiece(selectedPoint, selectedPoint2);
-            Nowindow();
             view.initiateChessComponent(model);
             view.repaint();
-            selectedPoint = null;
-            selectedPoint2 = null;
-        } else if (ifswap() && selectedPoint != null && selectedPoint2 != null) {
-            removecombination();
-            selectedPoint = null;
-            selectedPoint2 = null;
-            view.initiateChessComponent(model);
-            view.repaint();
+            if (!ifswap()) {
+                model.swapChessPiece(selectedPoint, selectedPoint2);
+                Nowindow();
+                view.initiateChessComponent(model);
+                view.repaint();
+                selectedPoint = null;
+                selectedPoint2 = null;
+            } else if (ifswap() && selectedPoint != null && selectedPoint2 != null) {
+                removecombination();
+                selectedPoint = null;
+                selectedPoint2 = null;
+                view.initiateChessComponent(model);
+                view.repaint();
+            }
+            stepnum++;
+            checknext=false;
         }
-        stepnum++;
     }
 
     @Override
     public void onPlayerNextStep() {
+        checknext=true;
         if(!checkgame()){
             if(!ifgamecontinue){
                 windows end=new windows(400,200);
                 end.gameoverwindows();
+                end.setVisible(true);
             }
         }else if(checkgame()){
             windows end=new windows(400,200);
             end.Endwindows();
+            end.setVisible(true);
         }
         if (countnext == 2) {
             countnext = 0;
@@ -447,7 +460,8 @@ public class GameController implements GameListener, Serializable {
     }
 
     private boolean checkgame(){
-
+        System.out.println(score);
+        System.out.println(stepnum);
         if(score>=scoretarget&&stepnum<=step){
             return true;
         }

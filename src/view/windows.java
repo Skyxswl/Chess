@@ -75,6 +75,8 @@ public class windows extends JFrame {
         JButton button = new JButton("Next level");
         button.addActionListener((e) -> {
             nextLevel();
+            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(button);
+            frame.dispose();
         });
         button.setLocation(250, 100);
         button.setSize(100, 30);
@@ -173,6 +175,21 @@ public class windows extends JFrame {
         JLabel statusLabel = new JLabel("Game Over");
         statusLabel.setLocation(100,30 );
         statusLabel.setSize(200,60);
+        statusLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
+        add(statusLabel);
+    }
+    public void nextwindows(){
+        setSize(width, height);
+        setLocationRelativeTo(null); // Center the window.
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE); //设置程序关闭按键，如果点击右上方的叉就游戏全部关闭了
+        setLayout(null);
+        addLabelNonext(height,width);
+        addButtonConfirm();
+    }
+    private void addLabelNonext(int height,int width) {
+        JLabel statusLabel = new JLabel("Please click next step button");
+        statusLabel.setLocation(66,30 );
+        statusLabel.setSize(300,60);
         statusLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(statusLabel);
     }
