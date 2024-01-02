@@ -147,6 +147,7 @@ public class StartFrame extends JFrame {
                 ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
                 mainFrame.gameController.setScoretarget(Level.Level1.getNum1());
                 mainFrame.gameController.setStep(Level.Level1.getNum2());
+                mainFrame.gameController.onPlayerNextStep();
                 mainFrame.setVisible(true);
                 dispose();
             }
@@ -163,6 +164,7 @@ public class StartFrame extends JFrame {
             ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
             mainFrame.gameController.setScoretarget(Level.Level2.getNum1());
             mainFrame.gameController.setStep(Level.Level2.getNum2());
+            mainFrame.gameController.onPlayerNextStep();
             mainFrame.setVisible(true);
             dispose();
         });
@@ -179,6 +181,7 @@ public class StartFrame extends JFrame {
             ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
             mainFrame.gameController.setScoretarget(Level.Level3.getNum1());
             mainFrame.gameController.setStep(Level.Level3.getNum2());
+            mainFrame.gameController.onPlayerNextStep();
             mainFrame.setVisible(true);
             dispose();
         });
@@ -195,6 +198,7 @@ public class StartFrame extends JFrame {
             ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
             mainFrame.gameController.setScoretarget(Level.Level4.getNum1());
             mainFrame.gameController.setStep(Level.Level4.getNum2());
+            mainFrame.gameController.onPlayerNextStep();
             mainFrame.setVisible(true);
             dispose();
         });
@@ -211,6 +215,7 @@ public class StartFrame extends JFrame {
             ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
             mainFrame.gameController.setScoretarget(Level.Level5.getNum1());
             mainFrame.gameController.setStep(Level.Level5.getNum2());
+            mainFrame.gameController.onPlayerNextStep();
             mainFrame.setVisible(true);
             dispose();
         });
@@ -227,6 +232,7 @@ public class StartFrame extends JFrame {
             ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
             mainFrame.gameController.setScoretarget(Level.Level6.getNum1());
             mainFrame.gameController.setStep(Level.Level6.getNum2());
+            mainFrame.gameController.onPlayerNextStep();
             mainFrame.setVisible(true);
             dispose();
         });
@@ -243,6 +249,7 @@ public class StartFrame extends JFrame {
             ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
             mainFrame.gameController.setScoretarget(Level.Level7.getNum1());
             mainFrame.gameController.setStep(Level.Level7.getNum2());
+            mainFrame.gameController.onPlayerNextStep();
             mainFrame.setVisible(true);
             dispose();
         });
@@ -259,6 +266,7 @@ public class StartFrame extends JFrame {
             ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
             mainFrame.gameController.setScoretarget(Level.Level8.getNum1());
             mainFrame.gameController.setStep(Level.Level8.getNum2());
+            mainFrame.gameController.onPlayerNextStep();
             mainFrame.setVisible(true);
             dispose();
         });
@@ -275,6 +283,7 @@ public class StartFrame extends JFrame {
             ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
             mainFrame.gameController.setScoretarget(Level.Level9.getNum1());
             mainFrame.gameController.setStep(Level.Level9.getNum2());
+            mainFrame.gameController.onPlayerNextStep();
             mainFrame.setVisible(true);
             dispose();
         });
@@ -291,6 +300,7 @@ public class StartFrame extends JFrame {
             ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
             mainFrame.gameController.setScoretarget(Level.Level10.getNum1());
             mainFrame.gameController.setStep(Level.Level10.getNum2());
+            mainFrame.gameController.onPlayerNextStep();
             mainFrame.setVisible(true);
             dispose();
         });
@@ -307,6 +317,7 @@ public class StartFrame extends JFrame {
             ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
             mainFrame.gameController.setScoretarget(Level.Level1.getNum1());
             mainFrame.gameController.setStep(Level.Level1.getNum2());
+            mainFrame.gameController.onPlayerNextStep();
             mainFrame.setVisible(true);
             dispose();
         });
