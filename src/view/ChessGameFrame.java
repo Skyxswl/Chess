@@ -257,7 +257,7 @@ public class ChessGameFrame extends JFrame {
         String text = String.format("Target Scores: %d", score);
         targetScoreLabel = new JLabel(text);
         targetScoreLabel.setLocation(HEIGTH, HEIGTH / 10 - 20);
-        targetScoreLabel.setSize(200, 60);
+        targetScoreLabel.setSize(300, 60);
         targetScoreLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
         targetScoreLabel.setForeground(Color.red);
         add(targetScoreLabel);

@@ -5,6 +5,7 @@ import model.ChessPiece;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 /**
  * This is the equivalent of the ChessPiece class,
@@ -43,7 +44,11 @@ public class ChessComponent extends JComponent {
         Font font = new Font("Helvetica", Font.PLAIN, getWidth() / 2);
         g2.setFont(font);
         g2.setColor(this.chessPiece.getColor());
-        g2.drawString(this.chessPiece.getName() , getWidth() / 4, getHeight() * 5 / 8); // FIXME: Use library to find the correct offset.
+        try {
+            g2.drawImage(this.chessPiece.getImage(), 0,0,getWidth(), getHeight(),this);// FIXME: Use library to find the correct offset.
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         if (isSelected()) { // Highlights the model if selected.
             g.setColor(Color.gray);
             g.drawOval(0, 0, getWidth(), getHeight());
