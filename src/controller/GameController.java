@@ -390,6 +390,10 @@ public class GameController extends JFrame implements GameListener, Serializable
 //                e.printStackTrace();
 //            }
             }
+            fm.format("%d ", score);
+            fm.format("%d ", step);
+            fm.format("%d ", stepnum);
+            fm.format("%d " ,scoretarget);
             fm.close();
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
@@ -435,6 +439,11 @@ public class GameController extends JFrame implements GameListener, Serializable
                     view.repaint();
                 }
             }
+            score=in.nextInt();
+            step=in.nextInt();
+            stepnum=in.nextInt();
+            scoretarget=in.nextInt();
+            ChessGameFrame.refresh();
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
