@@ -1,6 +1,7 @@
 package controller;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.io.FileWriter;
 
 import gameState.GameState;
@@ -69,18 +70,6 @@ public class GameController extends JFrame implements GameListener, Serializable
 
     @Override
     public void onPlayerSwapChess() {
-        if (!checkgame()) {
-            if (!ifgamecontinue) {
-                windows end = new windows(400, 200);
-                end.gameoverwindows();
-                end.setVisible(true);
-            }
-        } else if (checkgame()) {
-            windows end = new windows(400, 200);
-            end.Endwindows();
-            end.setVisible(true);
-            checknext = true;
-        }
         if (!findnull() && !ifswap()) {
             checknext = true;
         }else checknext=false;
@@ -118,24 +107,25 @@ public class GameController extends JFrame implements GameListener, Serializable
             alive.alivewindow();
             alive.setVisible(true);
         }
-        if (!checkgame()) {
-            if (!ifgamecontinue) {
-                windows end = new windows(400, 200);
-                end.gameoverwindows();
-                end.setVisible(true);
-            }
-        } else if (checkgame()) {
-            windows end = new windows(400, 200);
-            end.Endwindows();
-            end.setVisible(true);
-            countnext=2;
-        }
+
         if (countnext == 2) {
             countnext = 0;
             if (ifswap()) {
                 removecombination();
                 selectedPoint = null;
                 selectedPoint2 = null;
+                if (!checkgame()) {
+                    if (!ifgamecontinue) {
+                        windows end = new windows(400, 200);
+                        end.gameoverwindows();
+                        end.setVisible(true);
+                    }
+                } else if (checkgame()) {
+                    windows end = new windows(400, 200);
+                    end.Endwindows();
+                    end.setVisible(true);
+                    countnext=2;
+                }
                 view.initiateChessComponent(model);
                 view.repaint();
                 return;
@@ -554,7 +544,7 @@ public class GameController extends JFrame implements GameListener, Serializable
         model.setGrid(grid);
     }
 
-    private boolean findnull() {
+    public boolean findnull() {
         Cell[][] grid = model.getGrid();
         for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
             for (int j = 0; j < Constant.CHESSBOARD_COL_SIZE.getNum(); j++) {
@@ -566,4 +556,11 @@ public class GameController extends JFrame implements GameListener, Serializable
         return false;
     }
 
+    public ChessboardPoint getSelectedPoint() {
+        return selectedPoint;
+    }
+
+    public ChessboardPoint getSelectedPoint2() {
+        return selectedPoint2;
+    }
 }

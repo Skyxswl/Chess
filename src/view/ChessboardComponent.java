@@ -10,6 +10,10 @@ import java.awt.event.MouseEvent;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import static model.Constant.CHESSBOARD_COL_SIZE;
 import static model.Constant.CHESSBOARD_ROW_SIZE;
@@ -98,21 +102,23 @@ public class ChessboardComponent extends JComponent {
     }
 
     private ChessboardPoint getChessboardPoint(Point point) {
-        System.out.println("[" + point.y/CHESS_SIZE +  ", " +point.x/CHESS_SIZE + "] Clicked");
-        return new ChessboardPoint(point.y/CHESS_SIZE, point.x/CHESS_SIZE);
+        System.out.println("[" + point.y / CHESS_SIZE + ", " + point.x / CHESS_SIZE + "] Clicked");
+        return new ChessboardPoint(point.y / CHESS_SIZE, point.x / CHESS_SIZE);
     }
+
     private Point calculatePoint(int row, int col) {
         return new Point(col * CHESS_SIZE, row * CHESS_SIZE);
     }
 
-    public void swapChess(){
+    public void swapChess() {
         gameController.onPlayerSwapChess();
     }
 
-    public void nextStep(){
+    public void nextStep() {
         gameController.onPlayerNextStep();
     }
-    public void Rearrange(){
+
+    public void Rearrange() {
         gameController.onPlayerRearrange();
     }
 
@@ -134,9 +140,21 @@ public class ChessboardComponent extends JComponent {
                 System.out.print("One chess here and ");
                 gameController.onPlayerClickChessPiece(getChessboardPoint(e.getPoint()), (ChessComponent) clickedComponent.getComponents()[0]);
             }
+            if (gameController.getSelectedPoint() != null && gameController.getSelectedPoint2() != null) {
+                gameController.onPlayerSwapChess();
+                ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+                scheduler.scheduleAtFixedRate(() -> {
+                    gameController.onPlayerNextStep();
+                    if (!gameController.findnull() && !gameController.ifswap()) {
+                        scheduler.shutdown();
+                    }
+                }, 1, 1, TimeUnit.SECONDS);
+
+            }
         }
     }
-    public void loadGame(List<String> chessData){
+
+    public void loadGame(List<String> chessData) {
 
     }
 }
