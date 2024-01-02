@@ -195,7 +195,7 @@ public class GameController implements GameListener, Serializable {
 
     public void newgame() {
         Random random = new Random(0);
-        Cell[][] grid = new Cell[Constant.CHESSBOARD_ROW_SIZE.getNum()][Constant.CHESSBOARD_COL_SIZE.getNum()];
+        Cell[][] grid = model.getGrid();
         for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
             for (int j = 0; j < Constant.CHESSBOARD_COL_SIZE.getNum(); j++) {
                 grid[i][j].setPiece(new ChessPiece(Util.RandomPick(new String[]{"💎", "⚪", "▲", "🔶", "a", "b"})));
@@ -203,6 +203,8 @@ public class GameController implements GameListener, Serializable {
         }
         model.setGrid(grid);
         model.fixPieces();
+        view.initiateChessComponent(model);
+        view.repaint();
     }
 
     // click a cell with a chess
