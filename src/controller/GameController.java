@@ -12,10 +12,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Formatter;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Controller is the connection between model and view,
@@ -100,8 +97,9 @@ public class GameController implements GameListener, Serializable {
                 selectedPoint2 = null;
                 view.initiateChessComponent(model);
                 view.repaint();
+                stepnum++;
             }
-            stepnum++;
+
             checknext=false;
         }
     }
@@ -184,8 +182,10 @@ public class GameController implements GameListener, Serializable {
         }
     }
     public void onPlayerRearrange(){
-        Chessboard chessboard=new Chessboard(0);
-        model=chessboard;
+        shuffleArray();
+        while (ifswap()){
+            shuffleArray();
+        }
         view.initiateChessComponent(model);
         view.repaint();
     }
@@ -489,5 +489,25 @@ public class GameController implements GameListener, Serializable {
         stepnum=0;
         scoretarget=0;
         score=0;
+    }
+    public void shuffleArray() {
+        // 创建一个空的列表，用于存放所有的元素
+        Cell[][] grid= model.getGrid();
+        List list = new ArrayList<>();
+        // 遍历二维数组的每个元素，添加到列表中
+        for (Cell[] row : grid) {
+            for (Cell num : row) {
+                list.add(num);
+            }
+        }
+        // 使用 Collections.shuffle 方法打乱列表中的元素
+        Collections.shuffle(list);
+        // 遍历二维数组的每个位置，从列表中弹出一个元素，放到二维数组中
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                grid[i][j] = (Cell)list.get(i*Constant.CHESSBOARD_ROW_SIZE.getNum()+j);
+            }
+        }
+        model.setGrid(grid);
     }
 }
