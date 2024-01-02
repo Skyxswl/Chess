@@ -6,11 +6,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 
 
 public class StartFrame extends JFrame {
     private MusicPlayer player = new MusicPlayer();
-    private final int WIDTH ;
+    private final int WIDTH;
     private final int HEIGHT;
     private JButton btn = new JButton();
     private JButton btn1 = new JButton();
@@ -19,7 +20,7 @@ public class StartFrame extends JFrame {
     private JButton btn4 = new JButton();
     private JButton loadButton = new JButton();
     private boolean flag1;//是否进入选择关卡界面
-    private  JLabel label = new JLabel("        关卡选择");
+    private JLabel label = new JLabel("        关卡选择");
 
     private JButton btn001 = new JButton();
     private JButton btn002 = new JButton();
@@ -33,19 +34,19 @@ public class StartFrame extends JFrame {
     private JButton btn010 = new JButton();
 
     private final JPanel root = new JPanel();
-    private final ImageIcon image1=new ImageIcon("images/077.png");
-    private final ImageIcon image5=new ImageIcon("images/066.png");
-    private final ImageIcon image6=new ImageIcon("images/014.jpg");
-    private final ImageIcon image01=new ImageIcon("images/1.png");
-    private final ImageIcon image02=new ImageIcon("images/2.png");
-    private final ImageIcon image03=new ImageIcon("images/3.png");
-    private final ImageIcon image04=new ImageIcon("images/4.png");
-    private final ImageIcon image05=new ImageIcon("images/5.png");
-    private final ImageIcon image06=new ImageIcon("images/6.png");
-    private final ImageIcon image07=new ImageIcon("images/7.png");
-    private final ImageIcon image08=new ImageIcon("images/8.png");
-    private final ImageIcon image09=new ImageIcon("images/9.png");
-    private final ImageIcon image10=new ImageIcon("images/10.png");
+    private final ImageIcon image1 = new ImageIcon("images/077.png");
+    private final ImageIcon image5 = new ImageIcon("images/066.png");
+    private final ImageIcon image6 = new ImageIcon("images/014.jpg");
+    private final ImageIcon image01 = new ImageIcon("images/1.png");
+    private final ImageIcon image02 = new ImageIcon("images/2.png");
+    private final ImageIcon image03 = new ImageIcon("images/3.png");
+    private final ImageIcon image04 = new ImageIcon("images/4.png");
+    private final ImageIcon image05 = new ImageIcon("images/5.png");
+    private final ImageIcon image06 = new ImageIcon("images/6.png");
+    private final ImageIcon image07 = new ImageIcon("images/7.png");
+    private final ImageIcon image08 = new ImageIcon("images/8.png");
+    private final ImageIcon image09 = new ImageIcon("images/9.png");
+    private final ImageIcon image10 = new ImageIcon("images/10.png");
 
     public StartFrame(int width, int height) {
         setTitle("Start"); //设置标题
@@ -71,30 +72,32 @@ public class StartFrame extends JFrame {
         addLevel10Button(image10);
         addTabeLable();
         addBackgroundLabel();
-        ActionListener test=new ActionListener() {
+        ActionListener test = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 player.play("Music/3177003356.wav"); // 播放音乐
             }
         };
-        Timer timer= new Timer(0,test);
+        Timer timer = new Timer(0, test);
         timer.start();
         timer.setRepeats(false);
-        Timer timer2= new Timer(106000,test);
+        Timer timer2 = new Timer(106000, test);
         timer2.start();
     }
+
     private void addBackgroundLabel() {
-        ImageIcon image=new ImageIcon("images/0244.png");
-        image.setImage(image.getImage().getScaledInstance(1100,810,Image.SCALE_DEFAULT));
-        JLabel label1=new JLabel(image);
+        ImageIcon image = new ImageIcon("images/0244.png");
+        image.setImage(image.getImage().getScaledInstance(1100, 810, Image.SCALE_DEFAULT));
+        JLabel label1 = new JLabel(image);
         add(label1);
-        label1.setBounds(0,0,1100,810);
+        label1.setBounds(0, 0, 1100, 810);
     }
+
     private void addSelectModeButton(ImageIcon image) {
         btn.setIcon(image);
-        image.setImage(image.getImage().getScaledInstance(328,67,Image.SCALE_DEFAULT));
+        image.setImage(image.getImage().getScaledInstance(328, 67, Image.SCALE_DEFAULT));
         btn.setBorderPainted(false);
-        btn.setBounds(380,202,328,67);
+        btn.setBounds(380, 202, 328, 67);
         btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn.addActionListener(e -> {
             btn.setVisible(false);
@@ -117,32 +120,34 @@ public class StartFrame extends JFrame {
         });
         add(btn);
     }
+
     private void addLoadButton(ImageIcon image) {
         loadButton.setIcon(image);
-        image.setImage(image.getImage().getScaledInstance(328,71,Image.SCALE_DEFAULT));
+        image.setImage(image.getImage().getScaledInstance(328, 71, Image.SCALE_DEFAULT));
         loadButton.setBorderPainted(false);
-        loadButton.setBounds(380,293,328,71);
+        loadButton.setBounds(380, 293, 328, 71);
 
         loadButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 
         //loadButton.addActionListener(e -> {
 //            player.over();//音乐播放
-          //  dispose();
+        //  dispose();
         //    ChessGameFrame.modeLabel = new JLabel("双人模式");
-   //         ChessGameFrame mainFrame = new ChessGameFrame(1024, 768);
+        //         ChessGameFrame mainFrame = new ChessGameFrame(1024, 768);
         //    mainFrame.setVisible(true);
 //            ChessGameFrame.getGameController().setPlayerController(0);
-      //      String path = JOptionPane.showInputDialog(this, "Input Path here");
+        //      String path = JOptionPane.showInputDialog(this, "Input Path here");
 //            getGameController().loadGameFromFile(path);
 //        });
         add(loadButton);
     }
+
     private void addNewGameButton() {
         btn3.setIcon(image5);
         btn3.setPressedIcon(image6);
         btn3.setBorderPainted(false);
-        btn3.setBounds(380,400,350,120);
+        btn3.setBounds(380, 400, 350, 120);
         btn3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         root.add(btn3);
         // 添加按钮点击事件监听器
@@ -160,11 +165,12 @@ public class StartFrame extends JFrame {
         });
         add(btn3);
     }
+
     private void addLevel2Button(ImageIcon image) {
-        btn002.setIcon( image);
-        image.setImage(image.getImage().getScaledInstance(80,80,Image.SCALE_DEFAULT));
+        btn002.setIcon(image);
+        image.setImage(image.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
         btn002.setBorderPainted(false);
-        btn002.setBounds(350,300,80,80);
+        btn002.setBounds(350, 300, 80, 80);
         btn002.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn002.addActionListener(e -> {
             ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
@@ -177,11 +183,12 @@ public class StartFrame extends JFrame {
         btn002.setVisible(false);
         add(btn002);
     }
+
     private void addLevel3Button(ImageIcon image) {
-        btn003.setIcon( image);
-        image.setImage(image.getImage().getScaledInstance(80,80,Image.SCALE_DEFAULT));
+        btn003.setIcon(image);
+        image.setImage(image.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
         btn003.setBorderPainted(false);
-        btn003.setBounds(500,300,80,80);
+        btn003.setBounds(500, 300, 80, 80);
         btn003.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn003.addActionListener(e -> {
             ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
@@ -194,11 +201,12 @@ public class StartFrame extends JFrame {
         btn003.setVisible(false);
         add(btn003);
     }
+
     private void addLevel4Button(ImageIcon image) {
-        btn004.setIcon( image);
-        image.setImage(image.getImage().getScaledInstance(80,80,Image.SCALE_DEFAULT));
+        btn004.setIcon(image);
+        image.setImage(image.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
         btn004.setBorderPainted(false);
-        btn004.setBounds(650,300,80,80);
+        btn004.setBounds(650, 300, 80, 80);
         btn004.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn004.addActionListener(e -> {
             ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
@@ -211,11 +219,12 @@ public class StartFrame extends JFrame {
         btn004.setVisible(false);
         add(btn004);
     }
+
     private void addLevel5Button(ImageIcon image) {
-        btn005.setIcon( image);
-        image.setImage(image.getImage().getScaledInstance(80,80,Image.SCALE_DEFAULT));
+        btn005.setIcon(image);
+        image.setImage(image.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
         btn005.setBorderPainted(false);
-        btn005.setBounds(800,300,80,80);
+        btn005.setBounds(800, 300, 80, 80);
         btn005.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn005.addActionListener(e -> {
             ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
@@ -228,11 +237,12 @@ public class StartFrame extends JFrame {
         btn005.setVisible(false);
         add(btn005);
     }
+
     private void addLevel6Button(ImageIcon image) {
-        btn006.setIcon( image);
-        image.setImage(image.getImage().getScaledInstance(80,80,Image.SCALE_DEFAULT));
+        btn006.setIcon(image);
+        image.setImage(image.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
         btn006.setBorderPainted(false);
-        btn006.setBounds(200,500,80,80);
+        btn006.setBounds(200, 500, 80, 80);
         btn006.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn006.addActionListener(e -> {
             ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
@@ -245,11 +255,12 @@ public class StartFrame extends JFrame {
         btn006.setVisible(false);
         add(btn006);
     }
+
     private void addLevel7Button(ImageIcon image) {
-        btn007.setIcon( image);
-        image.setImage(image.getImage().getScaledInstance(80,80,Image.SCALE_DEFAULT));
+        btn007.setIcon(image);
+        image.setImage(image.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
         btn007.setBorderPainted(false);
-        btn007.setBounds(350,500,80,80);
+        btn007.setBounds(350, 500, 80, 80);
         btn007.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn007.addActionListener(e -> {
             ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
@@ -262,11 +273,12 @@ public class StartFrame extends JFrame {
         btn007.setVisible(false);
         add(btn007);
     }
+
     private void addLevel8Button(ImageIcon image) {
-        btn008.setIcon( image);
-        image.setImage(image.getImage().getScaledInstance(80,80,Image.SCALE_DEFAULT));
+        btn008.setIcon(image);
+        image.setImage(image.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
         btn008.setBorderPainted(false);
-        btn008.setBounds(500,500,80,80);
+        btn008.setBounds(500, 500, 80, 80);
         btn008.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn008.addActionListener(e -> {
             ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
@@ -279,11 +291,12 @@ public class StartFrame extends JFrame {
         btn008.setVisible(false);
         add(btn008);
     }
+
     private void addLevel9Button(ImageIcon image) {
-        btn009.setIcon( image);
-        image.setImage(image.getImage().getScaledInstance(80,80,Image.SCALE_DEFAULT));
+        btn009.setIcon(image);
+        image.setImage(image.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
         btn009.setBorderPainted(false);
-        btn009.setBounds(650,500,80,80);
+        btn009.setBounds(650, 500, 80, 80);
         btn009.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn009.addActionListener(e -> {
             ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
@@ -296,11 +309,12 @@ public class StartFrame extends JFrame {
         btn009.setVisible(false);
         add(btn009);
     }
+
     private void addLevel10Button(ImageIcon image) {
-        btn010.setIcon( image);
-        image.setImage(image.getImage().getScaledInstance(80,80,Image.SCALE_DEFAULT));
+        btn010.setIcon(image);
+        image.setImage(image.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
         btn010.setBorderPainted(false);
-        btn010.setBounds(800,500,80,80);
+        btn010.setBounds(800, 500, 80, 80);
         btn010.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn010.addActionListener(e -> {
             ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
@@ -313,11 +327,12 @@ public class StartFrame extends JFrame {
         btn010.setVisible(false);
         add(btn010);
     }
+
     private void addLevel1Button(ImageIcon image) {
-        btn001.setIcon( image);
-        image.setImage(image.getImage().getScaledInstance(80,80,Image.SCALE_DEFAULT));
+        btn001.setIcon(image);
+        image.setImage(image.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
         btn001.setBorderPainted(false);
-        btn001.setBounds(200,300,80,80);
+        btn001.setBounds(200, 300, 80, 80);
         btn001.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn001.addActionListener(e -> {
             ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
@@ -330,6 +345,7 @@ public class StartFrame extends JFrame {
         btn001.setVisible(false);
         add(btn001);
     }
+
     public void addTabeLable() {
         label.setBounds(350, 100, 380, 67);
         label.setForeground(Color.WHITE);
@@ -338,7 +354,8 @@ public class StartFrame extends JFrame {
         label.setBackground(new Color(139, 216, 236));
         setLabel(label, 40, "隶书");
     }
-    public void setLabel(JLabel label,int size,String name){
+
+    public void setLabel(JLabel label, int size, String name) {
         label.setFont(new Font(name, Font.BOLD, size));
         label.setForeground(Color.WHITE);
         label.setVisible(false);

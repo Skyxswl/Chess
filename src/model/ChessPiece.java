@@ -4,6 +4,7 @@ package model;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.net.URL;
 
 public class ChessPiece {
     // Diamond, Circle, ...

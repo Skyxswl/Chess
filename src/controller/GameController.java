@@ -12,6 +12,7 @@ import view.*;
 
 import javax.swing.*;
 import java.io.*;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -239,6 +240,9 @@ public class GameController extends JFrame implements GameListener, Serializable
             } else {
                 Random random = new Random();
                 int randomNumber = random.nextInt(8) + 1;
+                if(randomNumber==0){
+                    countnext = 1;
+                }else countnext=0;
                 for (int i = 0; i < Constant.CHESSBOARD_COL_SIZE.getNum(); i++) {
                     ChessboardPoint p1 = new ChessboardPoint(randomNumber, i);
                     model.setChessPiece(p1, new ChessPiece(""));
@@ -271,6 +275,7 @@ public class GameController extends JFrame implements GameListener, Serializable
 
                     }
                 }
+
                 magicnum--;
             }
         } else {
