@@ -26,6 +26,7 @@ import java.util.Scanner;
  */
 public class GameController implements GameListener, Serializable {
 
+    ChessGameFrame mainFrame;
     private Chessboard model;
     private ChessboardComponent view;
 

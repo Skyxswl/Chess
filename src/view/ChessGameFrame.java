@@ -21,7 +21,7 @@ public class ChessGameFrame extends JFrame {
 
 
     //    public static JLabel modeLabel;
-    public JLabel stepLabel, scoreLabel, remainingStepLable;
+    public JLabel stepLabel, scoreLabel, remainingStepLable,targetScoreLabel,levelLabel;
     Chessboard chessboard = new Chessboard(0);
 
     private JButton btn2 = new JButton();
@@ -45,7 +45,9 @@ public class ChessGameFrame extends JFrame {
                 new GameController(this.getChessboardComponent(), chessboard);
         this.gameController = gameController;
 
-        addHelloButton();
+//        addHelloButton();
+//        addLabel();
+        addLevelLabel();
         addSwapConfirmButton();
         addNextStepButton();
         addLoadButton();
@@ -53,8 +55,12 @@ public class ChessGameFrame extends JFrame {
         addQuitButton(image5);
         addRearrangeButton();
         addRemainingStepLabel(gameController.getStepnum());
+        remainingStepLable.setText(String.format("Remaining Steps: %d", 30));
         addStepLabel(gameController.getStepnum());
+        addTargetScoreLabel(gameController.getScoretarget());
+//        targetScoreLabel.setText(String.format("Target Scores: %d", gameController.getScoretarget()));
         addScoreLabel(gameController.getScore());
+        addUndoButton();
 
     }
 
@@ -81,30 +87,38 @@ public class ChessGameFrame extends JFrame {
      * 在游戏面板中添加标签
      */
 //    private void addLabel() {
-//        JLabel statusLabel = new JLabel("Sample label");
-//        statusLabel.setLocation(HEIGTH, HEIGTH / 10);
+//        JLabel statusLabel = new JLabel(gameController.getlevel());
+//        statusLabel.setLocation(HEIGTH, HEIGTH / 10+120);
 //        statusLabel.setSize(200, 60);
 //        statusLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
+//        statusLabel.setForeground(Color.red);
 //        add(statusLabel);
 //    }
-
+    public void addLevelLabel() {
+        levelLabel = new JLabel("Level");
+        levelLabel.setLocation(HEIGTH-380, HEIGTH / 10 -60);
+        levelLabel.setSize(200, 60);
+        levelLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
+        levelLabel.setForeground(Color.red);
+        add(levelLabel);
+    }
     /**
      * 在游戏面板中增加一个按钮，如果按下的话就会显示Hello, world!
      */
 
-    private void addHelloButton() {
-        JButton button = new JButton("Show Hello Here");
-        button.addActionListener((e) -> JOptionPane.showMessageDialog(this, "Hello, world!"));
-        button.setLocation(HEIGTH, HEIGTH / 10 + 120);
-        button.setSize(200, 60);
-        button.setFont(new Font("Rockwell", Font.BOLD, 20));
-        add(button);
-    }
+//    private void addHelloButton() {
+//        JButton button = new JButton("Show Hello Here");
+//        button.addActionListener((e) -> JOptionPane.showMessageDialog(this, "Hello, world!"));
+//        button.setLocation(HEIGTH, HEIGTH / 10 + 120);
+//        button.setSize(200, 60);
+//        button.setFont(new Font("Rockwell", Font.BOLD, 20));
+//        add(button);
+//    }
 
     private void addSwapConfirmButton() {
         JButton button = new JButton("Confirm Swap");
         button.addActionListener((e) -> chessboardComponent.swapChess());
-        button.setLocation(HEIGTH, HEIGTH / 10 + 200);
+        button.setLocation(HEIGTH, HEIGTH / 10 +100);
         button.setSize(200, 60);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
@@ -112,8 +126,16 @@ public class ChessGameFrame extends JFrame {
 
     private void addNextStepButton() {
         JButton button = new JButton("Next Step");
-        button.addActionListener((e) -> chessboardComponent.nextStep());
-        button.setLocation(HEIGTH, HEIGTH / 10 + 280);
+        button.addActionListener((e) -> {
+            String text = String.format(gameController.getlevel());
+            levelLabel.setText(text);
+            chessboardComponent.nextStep();
+            stepLabel.setText(String.format("Steps: %d", gameController.getStepnum()));
+            remainingStepLable.setText(String.format("Remaining Steps: %d", gameController.getStep()-gameController.getStepnum()));
+            scoreLabel.setText(String.format("Scores: %d", gameController.getScore()));
+            targetScoreLabel.setText(String.format("Target Scores: %d", gameController.getScoretarget()));
+        });
+        button.setLocation(HEIGTH, HEIGTH / 10 + 180);
         button.setSize(200, 60);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
@@ -121,7 +143,7 @@ public class ChessGameFrame extends JFrame {
 
     private void addLoadButton() {
         JButton button = new JButton("Load");
-        button.setLocation(HEIGTH, HEIGTH / 10 + 360);
+        button.setLocation(HEIGTH, HEIGTH / 10 + 260);
         button.setSize(200, 60);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
@@ -153,7 +175,7 @@ public class ChessGameFrame extends JFrame {
 
     private void addSaveButton() {
         JButton saveButton = new JButton("Save");
-        saveButton.setLocation(HEIGTH, HEIGTH / 10 + 440);
+        saveButton.setLocation(HEIGTH, HEIGTH / 10 + 340);
         saveButton.setSize(200, 60);
         saveButton.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(saveButton);
@@ -170,7 +192,7 @@ public class ChessGameFrame extends JFrame {
         image.setImage(image.getImage().getScaledInstance(38, 32, Image.SCALE_DEFAULT));
 
         btn2.setBorderPainted(false);
-        btn2.setBounds(900, 680, 38, 32);
+        btn2.setBounds(100, 680, 38, 32);
         btn2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn2.addActionListener(e -> {
 
@@ -185,12 +207,22 @@ public class ChessGameFrame extends JFrame {
 
     private void addRearrangeButton() {
         JButton rearrangeButton = new JButton("Rearrange");
-        rearrangeButton.setLocation(HEIGTH, HEIGTH / 10 + 520);
+        rearrangeButton.setLocation(HEIGTH, HEIGTH / 10 + 420);
         rearrangeButton.setSize(200, 60);
         rearrangeButton.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(rearrangeButton);
         rearrangeButton.addActionListener(e -> {
             chessboardComponent.Rearrange();
+        });
+    }
+    private void addUndoButton() {
+        JButton undoButton = new JButton("Undo");
+        undoButton.setLocation(HEIGTH, HEIGTH / 10 + 500);
+        undoButton.setSize(200, 60);
+        undoButton.setFont(new Font("Rockwell", Font.BOLD, 20));
+        add(undoButton);
+        undoButton.addActionListener(e -> {
+
         });
     }
 
@@ -217,11 +249,20 @@ public class ChessGameFrame extends JFrame {
     public void addScoreLabel(int score) {
         String text = String.format("Scores: %d", score);
         scoreLabel = new JLabel(text);
-        scoreLabel.setLocation(HEIGTH, HEIGTH / 10 - 20);
+        scoreLabel.setLocation(HEIGTH, HEIGTH / 10 + 10);
         scoreLabel.setSize(200, 60);
         scoreLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
         scoreLabel.setForeground(Color.red);
         add(scoreLabel);
+    }
+    public void addTargetScoreLabel(int score) {
+        String text = String.format("Target Scores: %d", score);
+        targetScoreLabel = new JLabel(text);
+        targetScoreLabel.setLocation(HEIGTH, HEIGTH / 10 - 20);
+        targetScoreLabel.setSize(200, 60);
+        targetScoreLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
+        targetScoreLabel.setForeground(Color.red);
+        add(targetScoreLabel);
     }
     public static GameController getGameController(){
         return gameController;
