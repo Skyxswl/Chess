@@ -175,7 +175,7 @@ public class GameController extends JFrame implements GameListener, Serializable
                     for (int j = 0; j < Constant.CHESSBOARD_ROW_SIZE.getNum(); j++) {
                         ChessboardPoint p1 = new ChessboardPoint(j, i);
                         if (model.getGridAt(p1).getPiece().getName() == "") {
-                            model.getGridAt(p1).setPiece(new ChessPiece(Util.RandomPick(new String[]{"💎", "⚪", "▲", "🔶"})));
+                            model.getGridAt(p1).setPiece(new ChessPiece(Util.RandomPick(new String[]{"1", "2", "3", "4"})));
                             MusicPlayer player = new MusicPlayer();
                             player.play("Music/eliminate.wav");
                         }
@@ -194,7 +194,7 @@ public class GameController extends JFrame implements GameListener, Serializable
                 for (int j = 0; j < Constant.CHESSBOARD_ROW_SIZE.getNum(); j++) {
                     ChessboardPoint p1 = new ChessboardPoint(j, i);
                     if (model.getGridAt(p1).getPiece().getName() == "") {
-                        model.getGridAt(p1).setPiece(new ChessPiece(Util.RandomPick(new String[]{"💎", "⚪", "▲", "🔶"})));
+                        model.getGridAt(p1).setPiece(new ChessPiece(Util.RandomPick(new String[]{"1", "2", "3", "4"})));
                     }
                 }
             }
@@ -290,7 +290,7 @@ public class GameController extends JFrame implements GameListener, Serializable
         Cell[][] grid = model.getGrid();
         for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
             for (int j = 0; j < Constant.CHESSBOARD_COL_SIZE.getNum(); j++) {
-                grid[i][j].setPiece(new ChessPiece(Util.RandomPick(new String[]{"💎", "⚪", "▲", "🔶", "a", "b"})));
+                grid[i][j].setPiece(new ChessPiece(Util.RandomPick(new String[]{"1", "2", "3", "4", "a", "b"})));
             }
         }
         model.setGrid(grid);
@@ -376,9 +376,8 @@ public class GameController extends JFrame implements GameListener, Serializable
 //        }
 //    }
     public void saveGame() {
-        File file = new File(System.getProperty("user.dir") + "/save/save.txt");
-        var home = System.getProperty("user.dir");
-        Formatter fm;
+        File file = new File( "save/save.txt");
+        var home = System.getProperty("user.dir");        Formatter fm;
         try {
             var path = Paths.get(home, "save", "save.txt");
             fm = new Formatter(path.toAbsolutePath().toString());
@@ -428,7 +427,7 @@ public class GameController extends JFrame implements GameListener, Serializable
         if (!path.endsWith(".txt")) {
             JOptionPane.showMessageDialog(null, "Error:101", "错误", JOptionPane.INFORMATION_MESSAGE);
         }
-        File file = new File(path);
+        File file = new File("save/save.txt");
         Scanner in;
         Formatter fm;
         String names;

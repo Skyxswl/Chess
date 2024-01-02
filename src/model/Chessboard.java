@@ -39,14 +39,14 @@ public class Chessboard {
 
         for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
             for (int j = 0; j < Constant.CHESSBOARD_COL_SIZE.getNum(); j++) {
-                grid[i][j].setPiece(new ChessPiece(Util.RandomPick(new String[]{"💎", "⚪", "▲", "🔶","a","b"})));
+                grid[i][j].setPiece(new ChessPiece(Util.RandomPick(new String[]{"1", "2", "3", "4","a","b"})));
             }
         }
         fixPieces();
     }
 
     private String GetNextName(String ch) {
-        String pieceIcons[] = {"💎", "⚪", "▲", "🔶","a","b"};
+        String pieceIcons[] = {"1", "2", "3", "4","a","b"};
         for (int i = 0; i < pieceIcons.length; i++) {
             if (pieceIcons[i] == ch) {
                 if (i == pieceIcons.length - 1)

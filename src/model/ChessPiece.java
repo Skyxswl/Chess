@@ -30,10 +30,10 @@ public class ChessPiece {
         Image image5 = new ImageIcon("Picture/horse.jpg").getImage();
         Image image6 = new ImageIcon("Picture/fox.jpg").getImage();
 
-        if (name.compareTo("💎") == 0) return image1;
-        if (name.compareTo("⚪") == 0) return image2;
-        if (name.compareTo("▲") == 0) return image3;
-        if (name.compareTo("🔶") == 0) return image4;
+        if (name.compareTo("1") == 0) return image1;
+        if (name.compareTo("2") == 0) return image2;
+        if (name.compareTo("3") == 0) return image3;
+        if (name.compareTo("4") == 0) return image4;
         if (name.compareTo("a") == 0) return image5;
         if (name.compareTo("b") == 0) return image6;
         return null;
