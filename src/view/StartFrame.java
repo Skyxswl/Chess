@@ -1,5 +1,7 @@
 package view;
 
+import player.MusicPlayer;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,6 +9,7 @@ import java.awt.event.ActionListener;
 
 
 public class StartFrame extends JFrame {
+    private MusicPlayer player = new MusicPlayer();
     private final int WIDTH ;
     private final int HEIGHT;
     private JButton btn = new JButton();
@@ -68,6 +71,17 @@ public class StartFrame extends JFrame {
         addLevel10Button(image10);
         addTabeLable();
         addBackgroundLabel();
+        ActionListener test=new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                player.play("Music/3177003356.wav"); // 播放音乐
+            }
+        };
+        Timer timer= new Timer(0,test);
+        timer.start();
+        timer.setRepeats(false);
+        Timer timer2= new Timer(106000,test);
+        timer2.start();
     }
     private void addBackgroundLabel() {
         ImageIcon image=new ImageIcon("images/0244.png");
@@ -135,6 +149,7 @@ public class StartFrame extends JFrame {
         btn3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                player.stop();
                 ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
                 mainFrame.gameController.setScoretarget(Level.Level1.getNum1());
                 mainFrame.gameController.setStep(Level.Level1.getNum2());
