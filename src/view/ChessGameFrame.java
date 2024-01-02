@@ -26,10 +26,11 @@ public class ChessGameFrame extends JFrame {
     //    public static JLabel modeLabel;
     public static JLabel stepLabel, scoreLabel, remainingStepLable,targetScoreLabel,levelLabel;
     Chessboard chessboard = new Chessboard(0);
-
+    JLabel label1 = new JLabel();
     private JButton btn2 = new JButton();
     private final ImageIcon image5 = new ImageIcon("images/quit.jpg");
-
+    boolean ifBackground1=true;
+    ImageIcon image;
     public ChessGameFrame(int width, int height) {
         setTitle("2023 CS109 Project Demo"); //设置标题
         this.WIDTH = width;
@@ -51,6 +52,7 @@ public class ChessGameFrame extends JFrame {
 //        addHelloButton();
 //        addLabel();
         addLevelLabel();
+        addSwitchButton();
         addSwapConfirmButton();
         addNextStepButton();
         addLoadButton();
@@ -64,11 +66,12 @@ public class ChessGameFrame extends JFrame {
 //        targetScoreLabel.setText(String.format("Target Scores: %d", gameController.getScoretarget()));
         addScoreLabel(gameController.getScore());
         addHintButton();
+        addBackgroundLabel();
         ActionListener test=new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 MusicPlayer player = new MusicPlayer();
-                player.play("3177003356.wav"); // 播放音乐
+                player.play("Music/3177003356.wav"); // 播放音乐
             }
         };
         Timer timer= new Timer(0,test);
@@ -77,7 +80,21 @@ public class ChessGameFrame extends JFrame {
         Timer timer2= new Timer(106000,test);
         timer2.start();
     }
-
+    private void addBackgroundLabel() {
+        if(ifBackground1==false){
+             image=new ImageIcon("images/0245.png");
+             label1.setIcon(image);
+             ifBackground1=true;
+        }else {
+             image=new ImageIcon("images/0243.png");
+             label1.setIcon(image);
+             ifBackground1=false;
+        }
+        image.setImage(image.getImage().getScaledInstance(1100,810,Image.SCALE_DEFAULT));
+        add(label1);
+        label1.setBounds(0,0,1100,810);
+        System.out.println(ifBackground1);
+    }
 
     public ChessboardComponent getChessboardComponent() {
         return chessboardComponent;
@@ -120,14 +137,19 @@ public class ChessGameFrame extends JFrame {
      * 在游戏面板中增加一个按钮，如果按下的话就会显示Hello, world!
      */
 
-//    private void addHelloButton() {
-//        JButton button = new JButton("Show Hello Here");
-//        button.addActionListener((e) -> JOptionPane.showMessageDialog(this, "Hello, world!"));
-//        button.setLocation(HEIGTH, HEIGTH / 10 + 120);
-//        button.setSize(200, 60);
-//        button.setFont(new Font("Rockwell", Font.BOLD, 20));
-//        add(button);
-//    }
+    private void addSwitchButton() {
+        JButton button = new JButton("Switch Background");
+        button.addActionListener((e) -> {
+            ;
+            addBackgroundLabel();
+            System.out.println("Switch the background");
+
+        });
+        button.setLocation(0, 0);
+        button.setSize(300, 60);
+        button.setFont(new Font("Rockwell", Font.BOLD, 20));
+        add(button);
+    }
 
     private void addSwapConfirmButton() {
         JButton button = new JButton("Confirm Swap");

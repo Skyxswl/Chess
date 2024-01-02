@@ -70,12 +70,11 @@ public class StartFrame extends JFrame {
         addBackgroundLabel();
     }
     private void addBackgroundLabel() {
-        ImageIcon image=new ImageIcon("images/0243.png");
+        ImageIcon image=new ImageIcon("images/0244.png");
         image.setImage(image.getImage().getScaledInstance(1100,810,Image.SCALE_DEFAULT));
         JLabel label1=new JLabel(image);
         add(label1);
         label1.setBounds(0,0,1100,810);
-//        playMusic();
     }
     private void addSelectModeButton(ImageIcon image) {
         btn.setIcon(image);
