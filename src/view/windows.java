@@ -2,6 +2,7 @@ package view;
 
 import controller.GameController;
 import model.Chessboard;
+import model.ChessboardPoint;
 
 import javax.swing.*;
 import java.awt.*;
@@ -213,6 +214,39 @@ public class windows extends JFrame {
         statusLabel.setLocation(66, 30);
         statusLabel.setSize(300, 60);
         statusLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
+        add(statusLabel);
+    }
+    public void Hintwindow(ChessboardPoint[] result, int width, int height){
+        setSize(width, height);
+        setLocationRelativeTo(null); // Center the window.
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE); //设置程序关闭按键，如果点击右上方的叉就游戏全部关闭了
+        setLayout(null);
+        addLabelHint(result);
+        addButtonConfirm();
+    }
+    private void addLabelHint(ChessboardPoint[] result){
+        String point1="("+(result[0].getRow()+1)+","+(result[0].getCol()+1)+")";
+        String point2="("+(result[1].getRow()+1)+","+(result[1].getCol()+1)+")";
+        String text=point1+" and "+point2+" can swap";
+        JLabel statusLabel = new JLabel(text);
+        statusLabel.setLocation(66, 30);
+        statusLabel.setSize(300, 60);
+        statusLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
+        add(statusLabel);
+    }
+    public void alivewindow(){
+        setSize(width, height);
+        setLocationRelativeTo(null); // Center the window.
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE); //设置程序关闭按键，如果点击右上方的叉就游戏全部关闭了
+        setLayout(null);
+        addLabelAlive();
+        addButtonConfirm();
+    }
+    private void addLabelAlive(){
+        JLabel statusLabel = new JLabel("<html>There is no match on chessboard,<br>please click rearrange button to continue</html>");
+        statusLabel.setLocation(50, 30);
+        statusLabel.setSize(300, 60);
+        statusLabel.setFont(new Font("Rockwell", Font.BOLD, 15));
         add(statusLabel);
     }
 }

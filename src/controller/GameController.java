@@ -113,6 +113,11 @@ public class GameController extends JFrame implements GameListener, Serializable
     @Override
     public void onPlayerNextStep() {
         ChessGameFrame.refresh();
+        if(!model.isAlive()){
+            windows alive=new windows(400,200);
+            alive.alivewindow();
+            alive.setVisible(true);
+        }
         if (!checkgame()) {
             if (!ifgamecontinue) {
                 windows end = new windows(400, 200);
@@ -196,6 +201,19 @@ public class GameController extends JFrame implements GameListener, Serializable
         }
         view.initiateChessComponent(model);
         view.repaint();
+    }
+    public void onPlayerHint(){
+        if(!model.isAlive()){
+            windows alive=new windows(400,200);
+            alive.alivewindow();
+            alive.setVisible(true);
+        }
+        ChessboardPoint[] result = model.findPossibleMove();
+        if(result!=null){
+            windows hint=new windows(400,200);
+            hint.Hintwindow(result,400,200);
+            hint.setVisible(true);
+        }
     }
 
     public void newgame() {

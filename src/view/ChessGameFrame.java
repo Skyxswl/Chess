@@ -229,7 +229,7 @@ public class ChessGameFrame extends JFrame {
         hintButton.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(hintButton);
         hintButton.addActionListener(e -> {
-
+            gameController.onPlayerHint();
         });
     }
 
