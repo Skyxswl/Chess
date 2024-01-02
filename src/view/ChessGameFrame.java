@@ -195,12 +195,10 @@ public class ChessGameFrame extends JFrame {
         btn2.setBounds(100, 680, 38, 32);
         btn2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn2.addActionListener(e -> {
-
             setVisible(false);
             dispose();
             StartFrame startFrame = new StartFrame(1100, 810);
             startFrame.setVisible(true);
-
         });
         add(btn2);
     }
