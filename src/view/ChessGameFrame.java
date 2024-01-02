@@ -21,6 +21,7 @@ public class ChessGameFrame extends JFrame {
 
     private ChessboardComponent chessboardComponent;
     public static GameController gameController;
+    private MusicPlayer player = new MusicPlayer();
 
 
     //    public static JLabel modeLabel;
@@ -74,7 +75,6 @@ public class ChessGameFrame extends JFrame {
         ActionListener test=new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MusicPlayer player = new MusicPlayer();
                 player.play("Music/3177003356.wav"); // 播放音乐
             }
         };
@@ -230,6 +230,7 @@ public class ChessGameFrame extends JFrame {
         btn2.setBounds(100, 680, 38, 32);
         btn2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn2.addActionListener(e -> {
+            player.stop();
             setVisible(false);
             dispose();
             StartFrame startFrame = new StartFrame(1100, 810);

@@ -19,4 +19,10 @@ public class MusicPlayer {
             e.printStackTrace();
         }
     }
+    public void stop() {
+        if (clip != null && clip.isRunning()) {
+            clip.stop();
+            clip.close();
+        }
+    }
 }
