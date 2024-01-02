@@ -131,6 +131,180 @@ public class Chessboard {
         return isFixed;
     }
 
+    public boolean isAlive(){
+        ChessboardPoint[] points = findPossibleMove();
+
+        if (points != null)
+            return true;
+        else
+            return false;
+    }
+
+    private ChessboardPoint[] findPossibleMoveFromRow(int row){
+        ChessboardPoint[] result = new ChessboardPoint[2];
+
+        for (int col=0; col < Constant.CHESSBOARD_COL_SIZE.getNum() - 2; col++) {
+            ChessboardPoint p1 = new ChessboardPoint(row, col);
+            ChessboardPoint p2 = new ChessboardPoint(row, col+1);
+            ChessboardPoint p3 = new ChessboardPoint(row, col+2);
+
+            String name1 = getGridAt(p1).getPiece().getName();
+            String name2 = getGridAt(p2).getPiece().getName();
+            String name3 = getGridAt(p3).getPiece().getName();
+
+
+            if (name1 == name2) {
+                /*
+                    +-----------------------------------------------+
+                    | col-2 | col -1 | col | col+1 | col+2 | col+3  |
+                    +-------+--------+-----+-------+-------+--------+
+                    |       |    ?   |     |       |   ?   |        |     row-1(if row >=1): leftUp, rightUp
+                    +-------+--------+-----+-------+-------+--------+
+                    |  ?    |        |  X  |   X   | [p3]  |   ?    |     row:  left, right
+                    +-------+--------+-----+-------+-------+--------+
+                    |       |   ?    |     |       |   ?   |        |     row+1(if row < CHESSBOARD_COL_SIZE-1): leftDown, rightDown
+                    +-----------------------------------------------+
+                 * */
+
+                //to check (row-1)
+                if (row >=1) {
+                    if (col >= 1) {
+                        ChessboardPoint leftUp = new ChessboardPoint(row - 1, col-1);
+                        String nameLeftUp = getGridAt(leftUp).getPiece().getName();
+
+                        if (nameLeftUp == name1) {
+                            result[0] = leftUp;
+                            result[1] = new ChessboardPoint(row, col - 1);
+                            return result;
+                        }
+                    }
+                    if (col <= Constant.CHESSBOARD_COL_SIZE.getNum() - 3) {
+                        ChessboardPoint rightUp = new ChessboardPoint(row-1, col+2);
+                        String nameRightUp = getGridAt(rightUp).getPiece().getName();
+
+                        if (nameRightUp == name1) {
+                            result[0] = rightUp;
+                            result[1] = p3;
+                            return result;
+                        }
+                    }
+                }
+
+                //to check (row)
+                {
+                    if (col >= 2) {
+                        ChessboardPoint left = new ChessboardPoint(row, col - 2);
+                        String nameLeft = getGridAt(left).getPiece().getName();
+
+                        if (nameLeft == name1) {
+                            result[0] = left;
+                            result[1] = new ChessboardPoint(row, col - 1);
+                            return result;
+                        }
+                    }
+                    if (col <= Constant.CHESSBOARD_COL_SIZE.getNum() - 4) {
+                        ChessboardPoint right = new ChessboardPoint(row, col + 3);
+                        String nameRight = getGridAt(right).getPiece().getName();
+
+                        if (nameRight == name1) {
+                            result[0] = right;
+                            result[1] = p3;
+                            return result;
+                        }
+                    }
+                }
+
+                //to check (row+1)
+                if (row <= Constant.CHESSBOARD_ROW_SIZE.getNum()-2) {
+                    System.out.println("to check row " + row);
+                    if (col >= 1) {
+                        ChessboardPoint leftDown = new ChessboardPoint(row + 1, col-1);
+                        String nameLeftDown = getGridAt(leftDown).getPiece().getName();
+
+                        if (nameLeftDown == name1) {
+                            result[0] = leftDown;
+                            result[1] = new ChessboardPoint(row, col - 1);
+                            return result;
+                        }
+                    }
+                    if (col <= Constant.CHESSBOARD_COL_SIZE.getNum() - 3) {
+                        ChessboardPoint rightDown = new ChessboardPoint(row+1, col+2);
+                        String nameRightDown = getGridAt(rightDown).getPiece().getName();
+
+                        if (nameRightDown == name1) {
+                            result[0] = rightDown;
+                            result[1] = p3;
+                            return result;
+                        }
+                    }
+                }
+            }
+//            else if (name2 == name3) {
+//                //不需要考虑，因为下一轮循环col++之后就会检查到了
+//            }
+            else if (name1 == name3) {
+                /*
+                    +---------------------+
+                    | col | col+1 | col+2 |
+                    +-----+-------+-------+
+                    |     |   ?   |       |     middleUp
+                    +-----+-------+-------+
+                    |  X  |   []  |   X   |
+                    +-----+-------+-------+
+                    |     |   ?   |       |     middleDown
+                    +---------------------+
+                 * */
+                if (row >= 1) {
+                    ChessboardPoint middleUp = new ChessboardPoint(row-1, col+1);
+                    String nameMiddleUp = getGridAt(middleUp).getPiece().getName();
+
+                    if (nameMiddleUp == name1) {
+                        result[0] = middleUp;
+                        result[1] = p2;
+                        return result;
+                    }
+                }
+
+                if (row <= Constant.CHESSBOARD_ROW_SIZE.getNum() -2) {
+                    ChessboardPoint middleDown = new ChessboardPoint(row+1, col+1);
+                    String nameMiddleDown = getGridAt(middleDown).getPiece().getName();
+
+                    if (nameMiddleDown == name1) {
+                        result[0] = middleDown;
+                        result[1] = p2;
+                        return result;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+
+    private ChessboardPoint[] findPossibleMoveFromCol(int col) {
+        ChessboardPoint[] result = new ChessboardPoint[2];
+
+
+        return null;
+    }
+
+    public ChessboardPoint[] findPossibleMove(){
+
+        for (int i=0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
+            ChessboardPoint[] result = findPossibleMoveFromRow(i);
+            if (result != null)
+                return result;
+        }
+
+        for (int i=0; i < Constant.CHESSBOARD_COL_SIZE.getNum(); i++) {
+            ChessboardPoint[] result = findPossibleMoveFromCol(i);
+            if (result != null)
+                return result;
+        }
+
+        return null;
+    }
+
     public ChessPiece getChessPieceAt(ChessboardPoint point) {
         return getGridAt(point).getPiece();
     }
