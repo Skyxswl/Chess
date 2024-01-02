@@ -71,6 +71,18 @@ public class GameController extends JFrame implements GameListener, Serializable
 
     @Override
     public void onPlayerSwapChess() {
+        if (!checkgame()) {
+            if (!ifgamecontinue) {
+                windows end = new windows(400, 200);
+                end.gameoverwindows();
+                end.setVisible(true);
+            }
+        } else if (checkgame()) {
+            windows end = new windows(400, 200);
+            end.Endwindows();
+            end.setVisible(true);
+            countnext=2;
+        }
         if (!findnull() && !ifswap()) {
             checknext = true;
         }else checknext=false;

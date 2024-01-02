@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 import static model.Constant.CHESSBOARD_COL_SIZE;
 import static model.Constant.CHESSBOARD_ROW_SIZE;
+import static view.ChessGameFrame.gameController;
 
 /**
  * This class represents the checkerboard component object on the panel
@@ -28,6 +29,7 @@ public class ChessboardComponent extends JComponent {
 
     private GameController gameController;
     private Cell[][] grid;
+    private static boolean isProcessing = false;
 
     public ChessboardComponent(int chessSize) {
         CHESS_SIZE = chessSize;
@@ -140,16 +142,18 @@ public class ChessboardComponent extends JComponent {
                 System.out.print("One chess here and ");
                 gameController.onPlayerClickChessPiece(getChessboardPoint(e.getPoint()), (ChessComponent) clickedComponent.getComponents()[0]);
             }
-            if (gameController.getSelectedPoint() != null && gameController.getSelectedPoint2() != null) {
-                gameController.onPlayerSwapChess();
-                ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-                scheduler.scheduleAtFixedRate(() -> {
-                    gameController.onPlayerNextStep();
-                    if (!gameController.findnull() && !gameController.ifswap()) {
-                        scheduler.shutdown();
-                    }
-                }, 1, 1, TimeUnit.SECONDS);
+            if (isProcessing) {
+                if (gameController.getSelectedPoint() != null && gameController.getSelectedPoint2() != null) {
+                    gameController.onPlayerSwapChess();
+                    ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+                    scheduler.scheduleAtFixedRate(() -> {
+                        gameController.onPlayerNextStep();
+                        if (!gameController.findnull() && !gameController.ifswap()) {
+                            scheduler.shutdown();
+                        }
+                    }, 1, 1, TimeUnit.SECONDS);
 
+                }
             }
         }
     }
@@ -157,4 +161,16 @@ public class ChessboardComponent extends JComponent {
     public void loadGame(List<String> chessData) {
 
     }
+
+
+    ;
+
+    public static void onButtonClick() {
+        if (!isProcessing) {
+            isProcessing = true;
+        } else {
+            isProcessing = false;
+        }
+    }
+
 }

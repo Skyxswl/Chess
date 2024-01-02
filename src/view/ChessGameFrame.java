@@ -264,8 +264,8 @@ public class ChessGameFrame extends JFrame {
         hintButton.setSize(200, 60);
         hintButton.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(hintButton);
-        hintButton.addActionListener(e -> {
-
+        hintButton.addActionListener(e ->  {
+            ChessboardComponent.onButtonClick();
         });
     }
 
