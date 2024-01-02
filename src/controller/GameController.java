@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import gameState.GameState;
 import listener.GameListener;
 import model.*;
+import player.MusicPlayer;
 import view.*;
 
 import javax.swing.*;
@@ -157,6 +158,8 @@ public class GameController extends JFrame implements GameListener, Serializable
                         ChessboardPoint p1 = new ChessboardPoint(j, i);
                         if (model.getGridAt(p1).getPiece().getName() == "") {
                             model.getGridAt(p1).setPiece(new ChessPiece(Util.RandomPick(new String[]{"💎", "⚪", "▲", "🔶"})));
+                            MusicPlayer player = new MusicPlayer();
+                            player.play("Music/eliminate.wav");
                         }
                     }
                 }
@@ -457,6 +460,8 @@ public class GameController extends JFrame implements GameListener, Serializable
                 }
             }
         }
+        MusicPlayer player = new MusicPlayer();
+        player.play("Music/eliminate.wav");
         score = score + num * 10;
     }
 //    public void setPlayerController(int roundType) {
