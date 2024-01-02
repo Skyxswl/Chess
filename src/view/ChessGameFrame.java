@@ -21,7 +21,7 @@ public class ChessGameFrame extends JFrame {
 
 
     //    public static JLabel modeLabel;
-    public JLabel stepLabel, scoreLabel, remainingStepLable,targetScoreLabel,levelLabel;
+    public static JLabel stepLabel, scoreLabel, remainingStepLable,targetScoreLabel,levelLabel;
     Chessboard chessboard = new Chessboard(0);
 
     private JButton btn2 = new JButton();
@@ -127,13 +127,8 @@ public class ChessGameFrame extends JFrame {
     private void addNextStepButton() {
         JButton button = new JButton("Next Step");
         button.addActionListener((e) -> {
-            String text = String.format(gameController.getlevel());
-            levelLabel.setText(text);
+
             chessboardComponent.nextStep();
-            stepLabel.setText(String.format("Steps: %d", gameController.getStepnum()));
-            remainingStepLable.setText(String.format("Remaining Steps: %d", gameController.getStep()-gameController.getStepnum()));
-            scoreLabel.setText(String.format("Scores: %d", gameController.getScore()));
-            targetScoreLabel.setText(String.format("Target Scores: %d", gameController.getScoretarget()));
         });
         button.setLocation(HEIGTH, HEIGTH / 10 + 180);
         button.setSize(200, 60);
@@ -264,5 +259,13 @@ public class ChessGameFrame extends JFrame {
     }
     public static GameController getGameController(){
         return gameController;
+    }
+    public static void refresh(){
+        String text = String.format(gameController.getlevel());
+        levelLabel.setText(text);
+        stepLabel.setText(String.format("Steps: %d", gameController.getStepnum()));
+        remainingStepLable.setText(String.format("Remaining Steps: %d",gameController.getStep()-gameController.getStepnum()));
+        scoreLabel.setText(String.format("Scores: %d", gameController.getScore()));
+        targetScoreLabel.setText(String.format("Target Scores: %d", gameController.getScoretarget()));
     }
 }

@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.*;
 import java.io.FileWriter;
 
 import gameState.GameState;
@@ -13,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.List;
 
 /**
  * Controller is the connection between model and view,
@@ -21,7 +23,8 @@ import java.util.*;
  * [in this demo the request methods are onPlayerClickCell() and
  * onPlayerClickChessPiece()]
  */
-public class GameController implements GameListener, Serializable {
+public class GameController extends JFrame implements GameListener, Serializable {
+    public JLabel stepLabel, scoreLabel, remainingStepLable, targetScoreLabel, levelLabel;
 
     ChessGameFrame mainFrame;
     private Chessboard model;
@@ -76,7 +79,11 @@ public class GameController implements GameListener, Serializable {
             windows end = new windows(400, 200);
             end.Endwindows();
             end.setVisible(true);
+            checknext = true;
         }
+        if (!findnull() && !ifswap()) {
+            checknext = true;
+        }else checknext=false;
         if (!checknext) {
             windows end = new windows(400, 200);
             end.nextwindows();
@@ -92,7 +99,6 @@ public class GameController implements GameListener, Serializable {
                 view.repaint();
                 selectedPoint = null;
                 selectedPoint2 = null;
-                checknext = true;
             } else if (ifswap() && selectedPoint != null && selectedPoint2 != null) {
                 removecombination();
                 selectedPoint = null;
@@ -101,14 +107,12 @@ public class GameController implements GameListener, Serializable {
                 view.repaint();
                 stepnum++;
             }
-
-            checknext = false;
         }
     }
 
     @Override
     public void onPlayerNextStep() {
-        checknext = true;
+        ChessGameFrame.refresh();
         if (!checkgame()) {
             if (!ifgamecontinue) {
                 windows end = new windows(400, 200);
@@ -119,6 +123,7 @@ public class GameController implements GameListener, Serializable {
             windows end = new windows(400, 200);
             end.Endwindows();
             end.setVisible(true);
+            countnext=2;
         }
         if (countnext == 2) {
             countnext = 0;
@@ -530,4 +535,17 @@ public class GameController implements GameListener, Serializable {
         }
         model.setGrid(grid);
     }
+
+    private boolean findnull() {
+        Cell[][] grid = model.getGrid();
+        for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
+            for (int j = 0; j < Constant.CHESSBOARD_COL_SIZE.getNum(); j++) {
+                if (grid[i][j].getPiece().getName() == "") {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 }
