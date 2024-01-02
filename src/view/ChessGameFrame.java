@@ -28,7 +28,9 @@ public class ChessGameFrame extends JFrame {
     Chessboard chessboard = new Chessboard(0);
     JLabel label1 = new JLabel();
     private JButton btn2 = new JButton();
+    private JButton btn666 = new JButton();
     private final ImageIcon image5 = new ImageIcon("images/quit.jpg");
+    private final ImageIcon image666 = new ImageIcon("images/boom.png");
     boolean ifBackground1=true;
     ImageIcon image;
     public ChessGameFrame(int width, int height) {
@@ -58,6 +60,8 @@ public class ChessGameFrame extends JFrame {
         addLoadButton();
         addSaveButton();
         addQuitButton(image5);
+        addSwitchModeButton();
+        addMagicButton(image666);
         addRearrangeButton();
         addRemainingStepLabel(gameController.getStepnum());
         remainingStepLable.setText(String.format("Remaining Steps: %d", 30));
@@ -254,6 +258,16 @@ public class ChessGameFrame extends JFrame {
             gameController.onPlayerHint();
         });
     }
+    private void addSwitchModeButton() {
+        JButton hintButton = new JButton("Switch Mode");
+        hintButton.setLocation(HEIGTH, HEIGTH / 10 + 580);
+        hintButton.setSize(200, 60);
+        hintButton.setFont(new Font("Rockwell", Font.BOLD, 20));
+        add(hintButton);
+        hintButton.addActionListener(e -> {
+
+        });
+    }
 
     public void addRemainingStepLabel(int step) {
         String text = String.format("Remaining Steps: %d", gameController.getStep() - step);
@@ -303,5 +317,17 @@ public class ChessGameFrame extends JFrame {
         remainingStepLable.setText(String.format("Remaining Steps: %d",gameController.getStep()-gameController.getStepnum()));
         scoreLabel.setText(String.format("Scores: %d", gameController.getScore()));
         targetScoreLabel.setText(String.format("Target Scores: %d", gameController.getScoretarget()));
+    }
+    private void addMagicButton(ImageIcon image) {
+        btn666.setIcon(image);
+        image.setImage(image.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+
+        btn666.setBorderPainted(false);
+        btn666.setBounds(50, 480, 100, 100);
+        btn666.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btn666.addActionListener(e -> {
+
+        });
+        add(btn666);
     }
 }
