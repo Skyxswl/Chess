@@ -35,12 +35,13 @@ public class GameController implements GameListener, Serializable {
     private int countnext = 0;
     private int step;
     private int scoretarget;
-    private int stepnum=0;
-    private boolean ifgamecontinue=true;
-    private int count=0;
-    private boolean checknext=true;
+    private int stepnum = 0;
+    private boolean ifgamecontinue = true;
+    private int count = 0;
+    private boolean checknext = true;
 
-    private Cell[][] grid1=new Cell[8][8];
+    private Cell[][] grid1 = new Cell[8][8];
+
     public GameController(ChessboardComponent view, Chessboard model) {
         this.view = view;
         this.model = model;
@@ -65,22 +66,22 @@ public class GameController implements GameListener, Serializable {
 
     @Override
     public void onPlayerSwapChess() {
-        if(!checkgame()){
-            if(!ifgamecontinue){
-                windows end=new windows(400,200);
+        if (!checkgame()) {
+            if (!ifgamecontinue) {
+                windows end = new windows(400, 200);
                 end.gameoverwindows();
                 end.setVisible(true);
             }
-        }else if(checkgame()){
-            windows end=new windows(400,200);
+        } else if (checkgame()) {
+            windows end = new windows(400, 200);
             end.Endwindows();
             end.setVisible(true);
         }
-        if(!checknext){
-            windows end=new windows(400,200);
+        if (!checknext) {
+            windows end = new windows(400, 200);
             end.nextwindows();
             end.setVisible(true);
-        }else {
+        } else {
             model.swapChessPiece(selectedPoint, selectedPoint2);
             view.initiateChessComponent(model);
             view.repaint();
@@ -91,6 +92,7 @@ public class GameController implements GameListener, Serializable {
                 view.repaint();
                 selectedPoint = null;
                 selectedPoint2 = null;
+                checknext = true;
             } else if (ifswap() && selectedPoint != null && selectedPoint2 != null) {
                 removecombination();
                 selectedPoint = null;
@@ -100,21 +102,21 @@ public class GameController implements GameListener, Serializable {
                 stepnum++;
             }
 
-            checknext=false;
+            checknext = false;
         }
     }
 
     @Override
     public void onPlayerNextStep() {
-        checknext=true;
-        if(!checkgame()){
-            if(!ifgamecontinue){
-                windows end=new windows(400,200);
+        checknext = true;
+        if (!checkgame()) {
+            if (!ifgamecontinue) {
+                windows end = new windows(400, 200);
                 end.gameoverwindows();
                 end.setVisible(true);
             }
-        }else if(checkgame()){
-            windows end=new windows(400,200);
+        } else if (checkgame()) {
+            windows end = new windows(400, 200);
             end.Endwindows();
             end.setVisible(true);
         }
@@ -181,14 +183,28 @@ public class GameController implements GameListener, Serializable {
             view.repaint();
         }
     }
-    public void onPlayerRearrange(){
+
+    public void onPlayerRearrange() {
         shuffleArray();
-        while (ifswap()){
+        while (ifswap()) {
             shuffleArray();
         }
         view.initiateChessComponent(model);
         view.repaint();
     }
+
+    public void newgame() {
+        Random random = new Random(0);
+        Cell[][] grid = new Cell[Constant.CHESSBOARD_ROW_SIZE.getNum()][Constant.CHESSBOARD_COL_SIZE.getNum()];
+        for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
+            for (int j = 0; j < Constant.CHESSBOARD_COL_SIZE.getNum(); j++) {
+                grid[i][j].setPiece(new ChessPiece(Util.RandomPick(new String[]{"💎", "⚪", "▲", "🔶", "a", "b"})));
+            }
+        }
+        model.setGrid(grid);
+        model.fixPieces();
+    }
+
     // click a cell with a chess
     @Override
     public void onPlayerClickChessPiece(ChessboardPoint point, ChessComponent component) {
@@ -266,11 +282,11 @@ public class GameController implements GameListener, Serializable {
 //        }
 //    }
     public void saveGame() {
-        File file = new File("/Users/huyufei/Desktop/save.txt");
-        var home = System.getProperty("user.home");
+        File file = new File(System.getProperty("user.dir") + "/save/save.txt");
+        var home = System.getProperty("user.dir");
         Formatter fm;
         try {
-            var path = Paths.get(home, "Desktop", "save.txt");
+            var path = Paths.get(home, "save", "save.txt");
             fm = new Formatter(path.toAbsolutePath().toString());
             for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
                 for (int j = 0; j < Constant.CHESSBOARD_COL_SIZE.getNum(); j++) {
@@ -309,8 +325,8 @@ public class GameController implements GameListener, Serializable {
 //            e.printStackTrace();
 //        }
 //    }
-    public void loadGameFromFile(String path) {
-//        path="/Users/huyufei/Desktop/save.txt";
+    public void loadGameFromFile() {
+        String path = System.getProperty("user.dir") + "/save/save.txt";
         if (!path.endsWith(".txt")) {
             JOptionPane.showMessageDialog(null, "Error:101", "错误", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -460,14 +476,13 @@ public class GameController implements GameListener, Serializable {
         return stepnum;
     }
 
-    private boolean checkgame(){
+    private boolean checkgame() {
         System.out.println(score);
         System.out.println(stepnum);
-        if(score>=scoretarget&&stepnum<=step){
+        if (score >= scoretarget && stepnum <= step) {
             return true;
-        }
-        else if(stepnum==step){
-            ifgamecontinue=false;
+        } else if (stepnum == step) {
+            ifgamecontinue = false;
             return false;
         }
         return false;
@@ -476,23 +491,26 @@ public class GameController implements GameListener, Serializable {
     public Chessboard getModel() {
         return model;
     }
-    public String getlevel(){
-        for (Level c:Level.values()){
-            if(c.getNum1()==scoretarget&&c.getNum2()==step){
+
+    public String getlevel() {
+        for (Level c : Level.values()) {
+            if (c.getNum1() == scoretarget && c.getNum2() == step) {
                 return c.name();
             }
         }
         return null;
     }
-    public void refresh(){
-        step=0;
-        stepnum=0;
-        scoretarget=0;
-        score=0;
+
+    public void refresh() {
+        step = 0;
+        stepnum = 0;
+        scoretarget = 0;
+        score = 0;
     }
+
     public void shuffleArray() {
         // 创建一个空的列表，用于存放所有的元素
-        Cell[][] grid= model.getGrid();
+        Cell[][] grid = model.getGrid();
         List list = new ArrayList<>();
         // 遍历二维数组的每个元素，添加到列表中
         for (Cell[] row : grid) {
@@ -505,7 +523,7 @@ public class GameController implements GameListener, Serializable {
         // 遍历二维数组的每个位置，从列表中弹出一个元素，放到二维数组中
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
-                grid[i][j] = (Cell)list.get(i*Constant.CHESSBOARD_ROW_SIZE.getNum()+j);
+                grid[i][j] = (Cell) list.get(i * Constant.CHESSBOARD_ROW_SIZE.getNum() + j);
             }
         }
         model.setGrid(grid);
