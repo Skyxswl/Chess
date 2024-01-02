@@ -326,7 +326,7 @@ public class ChessGameFrame extends JFrame {
         btn666.setBounds(50, 480, 100, 100);
         btn666.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn666.addActionListener(e -> {
-
+            gameController.onPlayerMagic();
         });
         add(btn666);
     }

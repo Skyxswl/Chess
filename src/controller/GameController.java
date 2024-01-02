@@ -17,6 +17,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+import static view.ChessboardComponent.isProcessing;
 
 /**
  * Controller is the connection between model and view,
@@ -26,7 +31,6 @@ import java.util.List;
  * onPlayerClickChessPiece()]
  */
 public class GameController extends JFrame implements GameListener, Serializable {
-    public JLabel stepLabel, scoreLabel, remainingStepLable, targetScoreLabel, levelLabel;
 
     ChessGameFrame mainFrame;
     private Chessboard model;
@@ -44,8 +48,7 @@ public class GameController extends JFrame implements GameListener, Serializable
     private boolean ifgamecontinue = true;
     private int count = 0;
     private boolean checknext = true;
-
-    private Cell[][] grid1 = new Cell[8][8];
+    private int magicnum = 2;
 
     public GameController(ChessboardComponent view, Chessboard model) {
         this.view = view;
@@ -81,11 +84,13 @@ public class GameController extends JFrame implements GameListener, Serializable
             windows end = new windows(400, 200);
             end.Endwindows();
             end.setVisible(true);
-            countnext=2;
+            countnext = 2;
         }
-        if (!findnull() && !ifswap()) {
-            checknext = true;
-        }else checknext=false;
+        if (!isProcessing) {
+            if (!findnull() && !ifswap()) {
+                checknext = true;
+            } else checknext = false;
+        }
         if (!checknext) {
             windows end = new windows(400, 200);
             end.nextwindows();
@@ -115,8 +120,8 @@ public class GameController extends JFrame implements GameListener, Serializable
     @Override
     public void onPlayerNextStep() {
         ChessGameFrame.refresh();
-        if(!model.isAlive()){
-            windows alive=new windows(400,200);
+        if (!model.isAlive()) {
+            windows alive = new windows(400, 200);
             alive.alivewindow();
             alive.setVisible(true);
         }
@@ -137,7 +142,7 @@ public class GameController extends JFrame implements GameListener, Serializable
                     windows end = new windows(400, 200);
                     end.Endwindows();
                     end.setVisible(true);
-                    countnext=2;
+                    countnext = 2;
                 }
                 view.initiateChessComponent(model);
                 view.repaint();
@@ -207,17 +212,71 @@ public class GameController extends JFrame implements GameListener, Serializable
         view.initiateChessComponent(model);
         view.repaint();
     }
-    public void onPlayerHint(){
-        if(!model.isAlive()){
-            windows alive=new windows(400,200);
+
+    public void onPlayerHint() {
+        if (!model.isAlive()) {
+            windows alive = new windows(400, 200);
             alive.alivewindow();
             alive.setVisible(true);
         }
         ChessboardPoint[] result = model.findPossibleMove();
-        if(result!=null){
-            windows hint=new windows(400,200);
-            hint.Hintwindow(result,400,200);
+        if (result != null) {
+            windows hint = new windows(400, 200);
+            hint.Hintwindow(result, 400, 200);
             hint.setVisible(true);
+        }
+    }
+
+    public void onPlayerMagic() {
+        if (magicnum > 0) {
+            if (!findnull() && !ifswap()) {
+                checknext = true;
+            } else checknext = false;
+            if (!checknext) {
+                windows end = new windows(400, 200);
+                end.nextwindows();
+                end.setVisible(true);
+            } else {
+                Random random = new Random();
+                int randomNumber = random.nextInt(8) + 1;
+                for (int i = 0; i < Constant.CHESSBOARD_COL_SIZE.getNum(); i++) {
+                    ChessboardPoint p1 = new ChessboardPoint(randomNumber, i);
+                    model.setChessPiece(p1, new ChessPiece(""));
+                    score += 10;
+                    view.initiateChessComponent(model);
+                    view.repaint();
+                    ChessGameFrame.refresh();
+                }
+                if (!checkgame()) {
+                    if (!ifgamecontinue) {
+                        windows end = new windows(400, 200);
+                        end.gameoverwindows();
+                        end.setVisible(true);
+                    }
+                } else if (checkgame()) {
+                    windows end = new windows(400, 200);
+                    end.Endwindows();
+                    end.setVisible(true);
+                    countnext = 2;
+                }
+                if (isProcessing) {
+                    if ((getSelectedPoint() != null && getSelectedPoint2() != null) || findnull()) {
+                        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+                        scheduler.scheduleAtFixedRate(() -> {
+                            onPlayerNextStep();
+                            if (!findnull() && !ifswap()) {
+                                scheduler.shutdown();
+                            }
+                        }, 1, 1, TimeUnit.SECONDS);
+
+                    }
+                }
+                magicnum--;
+            }
+        } else {
+            windows magic = new windows(400, 200);
+            magic.magicwindow();
+            magic.setVisible(true);
         }
     }
 
@@ -579,5 +638,9 @@ public class GameController extends JFrame implements GameListener, Serializable
 
     public ChessboardPoint getSelectedPoint2() {
         return selectedPoint2;
+    }
+
+    public void setMagicnum(int magicnum) {
+        this.magicnum = magicnum;
     }
 }

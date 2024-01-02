@@ -100,6 +100,7 @@ public class windows extends JFrame {
                 gameController.newgame();
                 gameController.setScoretarget(Level.Level2.getNum1());
                 gameController.setStep(Level.Level2.getNum2());
+                gameController.setMagicnum(2);
                 ChessGameFrame.refresh();
                 break;
             }
@@ -108,6 +109,7 @@ public class windows extends JFrame {
                 gameController.newgame();
                 gameController.setScoretarget(Level.Level3.getNum1());
                 gameController.setStep(Level.Level3.getNum2());
+                gameController.setMagicnum(2);
                 ChessGameFrame.refresh();
                 break;
             }
@@ -116,6 +118,7 @@ public class windows extends JFrame {
                 gameController.newgame();
                 gameController.setScoretarget(Level.Level4.getNum1());
                 gameController.setStep(Level.Level4.getNum2());
+                gameController.setMagicnum(2);
                 ChessGameFrame.refresh();
                 break;
             }
@@ -124,6 +127,7 @@ public class windows extends JFrame {
                 gameController.newgame();
                 gameController.setScoretarget(Level.Level5.getNum1());
                 gameController.setStep(Level.Level5.getNum2());
+                gameController.setMagicnum(2);
                 ChessGameFrame.refresh();
                 break;
             }
@@ -132,6 +136,7 @@ public class windows extends JFrame {
                 gameController.newgame();
                 gameController.setScoretarget(Level.Level6.getNum1());
                 gameController.setStep(Level.Level6.getNum2());
+                gameController.setMagicnum(2);
                 ChessGameFrame.refresh();
                 break;
             }
@@ -140,6 +145,7 @@ public class windows extends JFrame {
                 gameController.newgame();
                 gameController.setScoretarget(Level.Level7.getNum1());
                 gameController.setStep(Level.Level7.getNum2());
+                gameController.setMagicnum(2);
                 ChessGameFrame.refresh();
                 break;
             }
@@ -148,6 +154,7 @@ public class windows extends JFrame {
                 gameController.newgame();
                 gameController.setScoretarget(Level.Level8.getNum1());
                 gameController.setStep(Level.Level8.getNum2());
+                gameController.setMagicnum(2);
                 ChessGameFrame.refresh();
                 break;
             }
@@ -156,6 +163,7 @@ public class windows extends JFrame {
                 gameController.newgame();
                 gameController.setScoretarget(Level.Level9.getNum1());
                 gameController.setStep(Level.Level9.getNum2());
+                gameController.setMagicnum(2);
                 ChessGameFrame.refresh();
                 break;
             }
@@ -164,6 +172,7 @@ public class windows extends JFrame {
                 gameController.newgame();
                 gameController.setScoretarget(Level.Level10.getNum1());
                 gameController.setStep(Level.Level10.getNum2());
+                gameController.setMagicnum(2);
                 ChessGameFrame.refresh();
                 break;
             }
@@ -247,6 +256,21 @@ public class windows extends JFrame {
         statusLabel.setLocation(50, 30);
         statusLabel.setSize(300, 60);
         statusLabel.setFont(new Font("Rockwell", Font.BOLD, 15));
+        add(statusLabel);
+    }
+    public void magicwindow(){
+        setSize(width, height);
+        setLocationRelativeTo(null); // Center the window.
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE); //设置程序关闭按键，如果点击右上方的叉就游戏全部关闭了
+        setLayout(null);
+        addLabelmagic();
+        addButtonConfirm();
+    }
+    private void addLabelmagic(){
+        JLabel statusLabel = new JLabel("You  haven't magic now!");
+        statusLabel.setLocation(80, 30);
+        statusLabel.setSize(300, 60);
+        statusLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(statusLabel);
     }
 }

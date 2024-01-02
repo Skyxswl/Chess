@@ -29,7 +29,7 @@ public class ChessboardComponent extends JComponent {
 
     private GameController gameController;
     private Cell[][] grid;
-    private static boolean isProcessing = false;
+    public static boolean isProcessing = false;
 
     public ChessboardComponent(int chessSize) {
         CHESS_SIZE = chessSize;
@@ -143,7 +143,7 @@ public class ChessboardComponent extends JComponent {
                 gameController.onPlayerClickChessPiece(getChessboardPoint(e.getPoint()), (ChessComponent) clickedComponent.getComponents()[0]);
             }
             if (isProcessing) {
-                if (gameController.getSelectedPoint() != null && gameController.getSelectedPoint2() != null) {
+                if ((gameController.getSelectedPoint() != null && gameController.getSelectedPoint2() != null) || gameController.findnull()) {
                     gameController.onPlayerSwapChess();
                     ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
                     scheduler.scheduleAtFixedRate(() -> {
@@ -161,9 +161,6 @@ public class ChessboardComponent extends JComponent {
     public void loadGame(List<String> chessData) {
 
     }
-
-
-    ;
 
     public static void onButtonClick() {
         if (!isProcessing) {
