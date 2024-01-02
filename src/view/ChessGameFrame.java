@@ -2,9 +2,12 @@ package view;
 
 import controller.GameController;
 import model.Chessboard;
+import player.MusicPlayer;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * 这个类表示游戏过程中的整个游戏界面，是一切的载体
@@ -60,8 +63,19 @@ public class ChessGameFrame extends JFrame {
         addTargetScoreLabel(gameController.getScoretarget());
 //        targetScoreLabel.setText(String.format("Target Scores: %d", gameController.getScoretarget()));
         addScoreLabel(gameController.getScore());
-        addUndoButton();
-
+        addHintButton();
+        ActionListener test=new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MusicPlayer player = new MusicPlayer();
+                player.play("3177003356.wav"); // 播放音乐
+            }
+        };
+        Timer timer= new Timer(0,test);
+        timer.start();
+        timer.setRepeats(false);
+        Timer timer2= new Timer(106000,test);
+        timer2.start();
     }
 
 
@@ -208,13 +222,13 @@ public class ChessGameFrame extends JFrame {
             chessboardComponent.Rearrange();
         });
     }
-    private void addUndoButton() {
-        JButton undoButton = new JButton("Undo");
-        undoButton.setLocation(HEIGTH, HEIGTH / 10 + 500);
-        undoButton.setSize(200, 60);
-        undoButton.setFont(new Font("Rockwell", Font.BOLD, 20));
-        add(undoButton);
-        undoButton.addActionListener(e -> {
+    private void addHintButton() {
+        JButton hintButton = new JButton("Hint");
+        hintButton.setLocation(HEIGTH, HEIGTH / 10 + 500);
+        hintButton.setSize(200, 60);
+        hintButton.setFont(new Font("Rockwell", Font.BOLD, 20));
+        add(hintButton);
+        hintButton.addActionListener(e -> {
 
         });
     }

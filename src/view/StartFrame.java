@@ -1,17 +1,9 @@
 package view;
 
-import controller.GameController;
-import player.HumanPlayer;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.List;
 
 
 public class StartFrame extends JFrame {
