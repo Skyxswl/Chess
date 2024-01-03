@@ -43,7 +43,6 @@ public class ChessComponent extends JComponent {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         Font font = new Font("Helvetica", Font.PLAIN, getWidth() / 2);
         g2.setFont(font);
-        g2.setColor(this.chessPiece.getColor());
         try {
             g2.drawImage(this.chessPiece.getImage(), 0,0,getWidth(), getHeight(),this);// FIXME: Use library to find the correct offset.
         } catch (IOException e) {

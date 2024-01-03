@@ -39,14 +39,14 @@ public class Chessboard {
 
         for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
             for (int j = 0; j < Constant.CHESSBOARD_COL_SIZE.getNum(); j++) {
-                grid[i][j].setPiece(new ChessPiece(Util.RandomPick(new String[]{"1", "2", "3", "4","a","b"})));
+                grid[i][j].setPiece(new ChessPiece(Util.RandomPick(new String[]{"a", "b", "c", "d","e","f"})));
             }
         }
         fixPieces();
     }
 
     private String GetNextName(String ch) {
-        String pieceIcons[] = {"1", "2", "3", "4","a","b"};
+        String pieceIcons[] = {"a", "b", "c", "d","e","f"};
         for (int i = 0; i < pieceIcons.length; i++) {
             if (pieceIcons[i] == ch) {
                 if (i == pieceIcons.length - 1)
@@ -132,7 +132,6 @@ public class Chessboard {
     }
   public boolean isAlive(){
         ChessboardPoint[] points = findPossibleMove();
-
         if (points != null)
             return true;
         else
@@ -141,6 +140,8 @@ public class Chessboard {
 
     private ChessboardPoint[] findPossibleMoveFromRow(int row){
         ChessboardPoint[] result = new ChessboardPoint[2];
+        Print();
+        System.out.println("Now check row " + row);
 
         for (int col=0; col < Constant.CHESSBOARD_COL_SIZE.getNum() - 2; col++) {
             ChessboardPoint p1 = new ChessboardPoint(row, col);

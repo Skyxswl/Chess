@@ -176,7 +176,7 @@ public class GameController extends JFrame implements GameListener, Serializable
                     for (int j = 0; j < Constant.CHESSBOARD_ROW_SIZE.getNum(); j++) {
                         ChessboardPoint p1 = new ChessboardPoint(j, i);
                         if (model.getGridAt(p1).getPiece().getName() == "") {
-                            model.getGridAt(p1).setPiece(new ChessPiece(Util.RandomPick(new String[]{"1", "2", "3", "4"})));
+                            model.getGridAt(p1).setPiece(new ChessPiece(Util.RandomPick(new String[]{"a", "b", "c", "d","e","f"})));
                             MusicPlayer player = new MusicPlayer();
                             player.play("Music/eliminate.wav");
                         }
@@ -195,7 +195,7 @@ public class GameController extends JFrame implements GameListener, Serializable
                 for (int j = 0; j < Constant.CHESSBOARD_ROW_SIZE.getNum(); j++) {
                     ChessboardPoint p1 = new ChessboardPoint(j, i);
                     if (model.getGridAt(p1).getPiece().getName() == "") {
-                        model.getGridAt(p1).setPiece(new ChessPiece(Util.RandomPick(new String[]{"1", "2", "3", "4"})));
+                        model.getGridAt(p1).setPiece(new ChessPiece(Util.RandomPick(new String[]{"a", "b", "c", "d","e","f"})));
                     }
                 }
             }
@@ -291,7 +291,7 @@ public class GameController extends JFrame implements GameListener, Serializable
         Cell[][] grid = model.getGrid();
         for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
             for (int j = 0; j < Constant.CHESSBOARD_COL_SIZE.getNum(); j++) {
-                grid[i][j].setPiece(new ChessPiece(Util.RandomPick(new String[]{"1", "2", "3", "4", "a", "b"})));
+                grid[i][j].setPiece(new ChessPiece(Util.RandomPick(new String[]{"a", "b", "c", "d", "e", "f"})));
             }
         }
         model.setGrid(grid);
@@ -444,6 +444,7 @@ public class GameController extends JFrame implements GameListener, Serializable
                     view.repaint();
                 }
             }
+            model.Print();
             score=in.nextInt();
             step=in.nextInt();
             stepnum=in.nextInt();

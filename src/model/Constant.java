@@ -16,11 +16,5 @@ public enum Constant {
         return num;
     }
 
-    static Map<String, Color> colorMap = new HashMap<>(){{
-        put("1",Color.blue);
-        put("2",Color.white);
-        put("3",Color.green);
-        put("4",Color.orange);
-    }};
 
 }
