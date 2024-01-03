@@ -11,6 +11,7 @@ import player.MusicPlayer;
 import view.*;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
@@ -34,8 +35,8 @@ import static view.ChessboardComponent.isProcessing;
 public class GameController extends JFrame implements GameListener, Serializable {
 
     ChessGameFrame mainFrame;
-    private Chessboard model;
-    private ChessboardComponent view;
+    public Chessboard model;
+    public ChessboardComponent view;
 
     // Record whether there is a selected piece before
     private ChessboardPoint selectedPoint;
@@ -452,6 +453,7 @@ public class GameController extends JFrame implements GameListener, Serializable
             throw new RuntimeException(e);
         }
     }
+
 
     public boolean ifswap() {
         boolean ifswap = false;

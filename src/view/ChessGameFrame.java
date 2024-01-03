@@ -5,9 +5,11 @@ import model.Chessboard;
 import player.MusicPlayer;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
 
 /**
  * 这个类表示游戏过程中的整个游戏界面，是一切的载体
@@ -33,6 +35,7 @@ public class ChessGameFrame extends JFrame {
     private final ImageIcon image5 = new ImageIcon("images/quit.jpg");
     private final ImageIcon image666 = new ImageIcon("images/boom.png");
     boolean ifBackground1=true;
+    boolean ifAuto=false;
     ImageIcon image;
     public ChessGameFrame(int width, int height) {
         setTitle("2023 CS109 Project Demo"); //设置标题
@@ -187,26 +190,53 @@ public class ChessGameFrame extends JFrame {
             System.out.println("Click load");
             //String path = JOptionPane.showInputDialog(this, "Input Path here");
             gameController.loadGameFromFile();
+//            this.importGame();
         });
+    }
+    public void importGame() {
+        JFileChooser jf = new JFileChooser(".");
+        jf.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        jf.setFileFilter(new FileFilter() {
+            @Override
+            public String getDescription() {
+                return ".txt";
+            }
+
+            @Override
+            public boolean accept(File f) {
+                if (f.getName().endsWith("txt")) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
+        int flag = jf.showOpenDialog(this);
+        if (flag == JFileChooser.APPROVE_OPTION) {
+            FileInputStream fileIn = null;
+            try {
+                fileIn = new FileInputStream(jf.getSelectedFile().getName());
+                String fileName = jf.getSelectedFile().getName();
+                String lastName = fileName.substring(fileName.lastIndexOf(".") + 1);
+                if (!lastName.equals("txt")) {
+                    JOptionPane.showMessageDialog(gameController.view, "Please import a txt type file!\nerror: 101");
+                    return;
+                }
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                Chessboard temp = (Chessboard) in.readObject();
+                gameController.model = temp;
+                gameController.view.initiateChessComponent(gameController.model);
+                gameController.view.repaint();
+            } catch (Exception error) {
+                error.printStackTrace();
+            }
+        }
     }
     /*
         用于向界面中添加一个“Load”按钮，以实现从文件加载棋局的功能。
         这部分代码首先打印"Click load"到控制台，然后弹出一个对话框提示用户输入文件路径。
         获取到的路径存储在path变量中。最后，它调用gameController的loadGameFromFile方法，尝试从指定路径加载棋局。
          */
-//    private void addSaveButton() {
-//        JButton button = new JButton("Save");
-//        button.setLocation(HEIGTH, HEIGTH / 10 + 440);
-//        button.setSize(200, 60);
-//        button.setFont(new Font("Rockwell", Font.BOLD, 20));
-//        add(button);
-//
-//        button.addActionListener(e -> {
-//            System.out.println("Click save");
-//            String path = JOptionPane.showInputDialog(this,"Input Path here");
-//           GameState.saveGameState(path);
-//        });
-//    }
 
     private void addSaveButton() {
         JButton saveButton = new JButton("Save");
@@ -219,7 +249,27 @@ public class ChessGameFrame extends JFrame {
             System.out.println("Click save");
 //            String path = JOptionPane.showInputDialog(this,"Input Path here");
             this.gameController.saveGame();
+//            this.saveGame();
         });
+    }
+
+
+    public void saveGame() {
+        try {
+                JFileChooser chooser = new JFileChooser(".");
+                chooser.setMultiSelectionEnabled(false);
+                int returnVal = chooser.showOpenDialog(this);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    String filepath = chooser.getSelectedFile().getAbsolutePath();
+                    FileOutputStream fileOut = new FileOutputStream(filepath);
+                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                    out.writeObject(gameController.getModel());
+                    out.close();
+                    fileOut.close();
+                }
+            } catch (IOException ee) {
+                ee.printStackTrace();
+            }
     }
 
     private void addQuitButton(ImageIcon image) {
@@ -260,12 +310,21 @@ public class ChessGameFrame extends JFrame {
         });
     }
     private void addSwitchModeButton() {
-        JButton hintButton = new JButton("Switch Mode");
-        hintButton.setLocation(HEIGTH, HEIGTH / 10 + 580);
-        hintButton.setSize(200, 60);
-        hintButton.setFont(new Font("Rockwell", Font.BOLD, 20));
-        add(hintButton);
-        hintButton.addActionListener(e ->  {
+        JButton switchModeButton = new JButton("Switch Mode");
+        switchModeButton.setLocation(HEIGTH, HEIGTH / 10 + 580);
+        switchModeButton.setSize(200, 60);
+        switchModeButton.setFont(new Font("Rockwell", Font.BOLD, 20));
+        add(switchModeButton);
+        switchModeButton.addActionListener(e ->  {
+            if(ChessboardComponent.isProcessing){
+                switchModeButton.setText("Hand Mode");
+                System.out.println("switch to Auto Mode");
+                ifAuto=true;
+            }else {
+                switchModeButton.setText("Auto Mode");
+                System.out.println("switch to Hand Mode");
+                ifAuto=false;
+            }
             ChessboardComponent.onButtonClick();
         });
     }
