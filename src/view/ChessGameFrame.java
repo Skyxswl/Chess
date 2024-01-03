@@ -84,7 +84,7 @@ public class ChessGameFrame extends JFrame {
         Timer timer= new Timer(0,test);
         timer.start();
         timer.setRepeats(false);
-        Timer timer2= new Timer(106000,test);
+        Timer timer2= new Timer(93000,test);
         timer2.start();
     }
     private void addBackgroundLabel() {
