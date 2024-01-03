@@ -51,6 +51,8 @@ public class GameController extends JFrame implements GameListener, Serializable
     private int count = 0;
     private boolean checknext = true;
     private int magicnum = 2;
+    boolean ifError=false;
+    int saveCount=0;
 
     public GameController(ChessboardComponent view, Chessboard model) {
         this.view = view;
@@ -426,9 +428,11 @@ public class GameController extends JFrame implements GameListener, Serializable
     public void loadGameFromFile() {
         String path = System.getProperty("user.dir") + "/save/save.txt";
         if (!path.endsWith(".txt")) {
-            JOptionPane.showMessageDialog(null, "Error:101", "错误", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error:101", "文件格式错误", JOptionPane.INFORMATION_MESSAGE);
+
         }
-        File file = new File("save/save.txt");
+
+        File file = new File(path);
         Scanner in;
         Formatter fm;
         String names;
@@ -439,9 +443,24 @@ public class GameController extends JFrame implements GameListener, Serializable
                     names = in.next();
                     ChessboardPoint p1 = new ChessboardPoint(i, j);
                     ChessPiece piece = new ChessPiece(names);
+                    if(!names.equals("a")&&!names.equals("b")&&!names.equals("c")&&!names.equals("d")&&!names.equals("e")&&!names.equals("f")){
+                        try{
+                            if(0<=Integer.parseInt(names)&&Integer.parseInt(names)<=30){
+                            JOptionPane.showMessageDialog(null, "Error:102", "棋盘格式错误", JOptionPane.INFORMATION_MESSAGE);
+                            break;
+                            }
+                        }catch (NumberFormatException e) {
+                            JOptionPane.showMessageDialog(null, "Error:103", "棋子格式错误", JOptionPane.INFORMATION_MESSAGE);
+                            ifError = true;
+                            break;
+                        }
+                    }
                     model.setChessPiece(p1, piece);
                     view.initiateChessComponent(model);
                     view.repaint();
+                }
+                if(ifError){
+                    break;
                 }
             }
             model.Print();
@@ -451,6 +470,7 @@ public class GameController extends JFrame implements GameListener, Serializable
             scoretarget=in.nextInt();
             ChessGameFrame.refresh();
         } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Error:102", "棋盘格式错误", JOptionPane.INFORMATION_MESSAGE);
             throw new RuntimeException(e);
         }
     }

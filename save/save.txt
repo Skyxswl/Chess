@@ -1,1 +1,1 @@
-a b e c e a b d f b c f a b c a c d f a a c a a a f a a e f e c f c b b a e b a a f c b f e d e e f f d a f a c d c f b f d f a 0 30 0 200
+f a b c f e c b f a d c e b e f a b c d a f b c e d b a e b a e c d c c e a e d b b a e f a f f a e e f e e d b c c e e c d e a 70 30 2 100 
